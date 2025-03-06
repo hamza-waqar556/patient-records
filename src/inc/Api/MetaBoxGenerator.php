@@ -6,6 +6,7 @@ use \Inc\Base\BaseController;
 
 class MetaBoxGenerator extends BaseController
 {
+
     private $meta_boxes = []; // Store all configurations
 
     public function register()
@@ -17,14 +18,13 @@ class MetaBoxGenerator extends BaseController
     public function setConfig($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title)
     {
         $this->meta_boxes[] = [
-            'cpt' => $cpt,
-            'fields' => $fields,
-            'nonce_name' => $nonce_name,
-            'nonce_action' => $nonce_action,
+            'cpt'           => $cpt,
+            'fields'        => $fields,
+            'nonce_name'    => $nonce_name,
+            'nonce_action'  => $nonce_action,
             'template_path' => $template_path,
-            'title' => $title,
+            'title'         => $title,
         ];
-
         return $this; // Enable method chaining
     }
 
@@ -46,32 +46,46 @@ class MetaBoxGenerator extends BaseController
         }
     }
 
+    /**
+     * Recursively sanitize data.
+     */
+    protected function recursive_sanitize($data)
+    {
+        if (is_array($data))
+        {
+            return array_map([$this, 'recursive_sanitize'], $data);
+        }
+        else
+        {
+            return sanitize_text_field($data);
+        }
+    }
+
     public function saveFields($post_id)
     {
-        // Prevent autosave, revision, or wrong post type
+        // Prevent autosave, revision, or wrong post type.
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if (!isset($_POST['post_type']) || $_POST['post_type'] !== 'record') return;
         if (!current_user_can('edit_post', $post_id)) return;
 
         foreach ($this->meta_boxes as $meta_box)
         {
-            // Validate nonce for each meta box individually
+            // Validate nonce for each meta box individually.
             if (
                 !isset($_POST[$meta_box['nonce_name']]) ||
                 !wp_verify_nonce($_POST[$meta_box['nonce_name']], $meta_box['nonce_action'])
             )
             {
-                continue;
+                continue; // Skip this meta box.
             }
-
             foreach ($meta_box['fields'] as $field)
             {
                 if (isset($_POST[$field]))
                 {
                     if (is_array($_POST[$field]))
                     {
-                        // Sanitize array values
-                        $sanitized_array = array_map('sanitize_text_field', $_POST[$field]);
+                        // Use recursive sanitization for multi-dimensional arrays.
+                        $sanitized_array = $this->recursive_sanitize($_POST[$field]);
                         update_post_meta($post_id, '_' . $field, $sanitized_array);
                     }
                     else

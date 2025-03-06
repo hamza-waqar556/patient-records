@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @package TourBooking
- */
-
 namespace Inc\Controllers;
 
 use \Inc\Base\BaseController;
@@ -39,26 +35,44 @@ class CreateMetaBoxes extends BaseController
                 'record_patient_details_nonce',
                 'record_patient_details_nonce_action',
                 'patient-details.php',
-                'Patient Details', // Title for second meta box
+                'Patient Details',
             ],
             [
                 'record',
                 [
-                    '_c',
+                    '_c'
                 ],
                 'record_living_support_nonce',
                 'record_living_support_nonce_action',
                 'living-supports.php',
-                'Community Living Support Objectives', // Title for second meta box
+                'Community Living Support Objectives',
             ],
-
+            [
+                'record',
+                [
+                    '_p'
+                ],
+                'record_personal_care_nonce',
+                'record_personal_care_nonce_action',
+                'personal-care.php',
+                'Personal Care Objectives',
+            ],
+            [
+                'record',
+                [
+                    '_r'
+                ],
+                'record_progress_report_nonce',
+                'record_progress_report_nonce_action',
+                'progress-report.php',
+                'Progress Report',
+            ],
         ];
 
         foreach ($this->meta_boxes as $meta_box)
         {
             list($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title) = $meta_box;
-            $this->mb_generator
-                ->setConfig($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title)->register();
+            $this->mb_generator->setConfig($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title);
         }
     }
 }
