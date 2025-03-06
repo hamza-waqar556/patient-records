@@ -60,7 +60,16 @@ class CreateMetaBoxes extends BaseController
             [
                 'record',
                 [
-                    '_r'
+                    '_member',
+                    '_mhwin_id',
+                    '_date',
+                    '_staff_initials',
+                    '_checkbox_select',
+                    '_task_id',
+                    '_checkboxes',
+                    '_add_note',
+                    '_staff_type',
+                    '_progress_code',
                 ],
                 'record_progress_report_nonce',
                 'record_progress_report_nonce_action',
