@@ -25,8 +25,11 @@ $results = [
     'checkboxes'      => array_map('sanitize_text_field', (array) get_post_meta($post->ID, '__checkboxes', true)),
 ];
 
-// ! --------------------->
+wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_nonce');
 
+
+// ! --------------------->
+// Use your CheckboxSelect component to render the select & checkboxes.
 use \Inc\Components\CheckboxSelect;
 use \Inc\Base\BaseController;
 
@@ -36,8 +39,10 @@ $component = new CheckboxSelect($jsonFilePath, true);
 $jsonData = $component->json;
 
 
-$selectedKey = 'c5';
+// $selectedKey = 'c5';
 
+// Determine the selected key – if saved value exists use it, otherwise default.
+$selectedKey = !empty($results['checkbox_select']) ? $results['checkbox_select'] : 'c1';
 
 
 
@@ -68,13 +73,22 @@ $selectedKey = 'c5';
         </div>
     </div>
 
-    <!-- Dynamic Select & Checkboxes -->
+    <!-- Dynamic Select & Checkboxes Component -->
     <div class="meta-box-select-component">
         <div class="select-wrapper">
-            <?php echo $component->renderSelect($selectedKey, '_checkbox_select'); ?>
+            <?php
+            // Render select dropdown; its name is _checkbox_select
+            echo $component->renderSelect($selectedKey, '_checkbox_select');
+            ?>
         </div>
         <div class="tabs-wrapper">
-            <?php echo $component->renderCheckboxes($selectedKey, '_checkboxes'); ?>
+            <?php
+            // Render checkboxes; their names will be like _checkboxes[c1][1], etc.
+            if (!empty($selectedKey))
+            {
+                echo $component->renderCheckboxes($selectedKey, '_checkboxes');
+            }
+            ?>
         </div>
     </div>
 </div>
