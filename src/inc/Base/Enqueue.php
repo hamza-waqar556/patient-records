@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @package TourBooking
+ */
+
+namespace Inc\Base;
+
+use \Inc\Base\BaseController;
+
+class Enqueue extends BaseController
+{
+    public function register()
+    {
+        add_action('admin_enqueue_scripts', [$this, 'enqueueAdmin']);
+    }
+
+    public function enqueueAdmin()
+    {
+
+        wp_enqueue_style('admin', $this->plugin_url . 'src/assets/admin/scss/admin.min.css', [], '1.0.0');
+
+        wp_enqueue_script('admin', $this->plugin_url . 'src/assets/admin/js/admin.min.js', ['jquery'], '1.0.0', false);
+
+        wp_enqueue_script('html2pdf', $this->plugin_url . 'src/assets/lib/html2pdf/pdf.min.js', ['jquery'], '1.0.0', false);
+
+
+        // Define jQuery ($) var as global
+        wp_add_inline_script('jquery', 'var $ = jQuery;');
+
+        $rest_routes = [];
+
+        $plugin = [
+            'path' => $this->plugin_path,
+            'url'  => $this->plugin_url,
+            'ajax_url' => $this->ajax_url,
+        ];
+
+
+        wp_localize_script('admin', 'AIOB', [
+            'routes' => $rest_routes,
+            'plugin'   => $plugin,
+            'nonce'    => wp_create_nonce('wp_rest'),
+        ]);
+    }
+}

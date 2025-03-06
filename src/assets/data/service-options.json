@@ -1,0 +1,514 @@
+[
+  {
+    "c1": [
+      {
+        "index": 1,
+        "value": "Staff engaged the consumer by asking for their input on meal preferences. Following hygiene protocols, staff assisted and guided in meal preparation in alignment with the client’s dietary needs. Staff demonstrated and taught client meal preparation/cooking skills (planning, chopping, cutting, cooking, setting table). Staff involved the consumer by seeking their opinions on preferred meals."
+      },
+      {
+        "index": 2,
+        "value": "Adhering to hygiene guidelines, they provided support and guidance throughout the meal preparation process, ensuring it met the client’s dietary requirements. Staff also demonstrated and taught various cooking skills, such as meal planning, chopping, cutting, cooking, and table setting."
+      },
+      {
+        "index": 3,
+        "value": "The staff engaged the client by requesting their preferences for meals. In accordance with hygiene standards, they assisted with meal preparation, ensuring it was tailored to the client’s dietary needs. Additionally, staff showed the client how to prepare meals, covering skills like planning, chopping, cutting, cooking, and setting the table."
+      },
+      {
+        "index": 4,
+        "value": "Staff connected with the consumer by asking for their input regarding meal choices. Following proper hygiene procedures, they supported and guided the client through the meal preparation process, aligning with their dietary needs. The staff also demonstrated and instructed the client in cooking techniques, including planning, chopping, cutting, cooking, and table setting."
+      },
+      {
+        "index": 5,
+        "value": "Staff facilitated communication by asking the consumer to point at pictures of food items to express meal preference in alignment with the client's dietary needs. Staff assisted and taught meal preparation skills (planning, chopping, cutting, cooking, setting table)."
+      }
+    ]
+  },
+  {
+    "c2": [
+      {
+        "index": 1,
+        "value": "Staff demonstrated, modeled and instructed steps while washing, folding and putting away clothing and/or bedding. Staff helped client measure detergent and showed them how to use the washer and dryer.  Client participated in the chore. Staff gave affirmations for positive behaviors. "
+      },
+      {
+        "index": 2,
+        "value": "Staff showed and guided the client through each step of washing, folding, and putting away clothes and/or bedding. They assisted the client in measuring detergent and operating the washer and dryer. The client took part in the task, with staff offering positive affirmations for good behavior."
+      },
+      {
+        "index": 3,
+        "value": "Staff demonstrated, modeled, and explained the process of washing, folding, and storing clothing and/or bedding. They helped the client measure the detergent and used the washer and dryer. The client actively participated, and staff praised their positive actions."
+      },
+      {
+        "index": 4,
+        "value": "Staff demonstrated/instructed/modeled steps while washing, folding and putting away clothing. Client was unable/unwilling to participate in tasks.  Staff washed, folded and put away consumer’s linen/towels and/or clothing and gave positive verbal prompts to encourage them to participate the next time."
+      },
+      {
+        "index": 5,
+        "value": "Staff demonstrated and guided the steps involved in washing, folding, and putting away clothing. Since the client was either unable or unwilling to participate, staff took over the tasks, completing the washing, folding, and storing of the client’s linens, towels, and clothing. They offered positive verbal prompts to encourage participation in the future."
+      },
+      {
+        "index": 6,
+        "value": "While demonstrating and modeling the process of washing, folding, and putting away clothing, the client chose not to engage in the tasks. Staff took care of washing, folding, and storing the client’s linen/towels and clothing, providing encouraging verbal prompts to motivate future participation."
+      },
+      {
+        "index": 7,
+        "value": "Staff showed and explained the steps of washing, folding, and putting away clothing, but the client was either unable or unwilling to take part. Staff completed the tasks on behalf of the client, including washing, folding, and putting away their linen/towels and clothing, offering positive verbal reinforcement to encourage them to join next time."
+      }
+    ]
+  },
+  {
+    "c3": [
+      {
+        "index": 1,
+        "value": "Staff carefully walked the client through the process of cleaning their room, explaining how to sweep the floor to eliminate dust and dirt, properly make the bed by adjusting the sheets, pillows, and blankets, and wipe down the furniture to remove any dust or smudges. They provided hands-on demonstrations and clear instructions for each step."
+      },
+      {
+        "index": 2,
+        "value": "Staff gave the client detailed instructions on how to clean their room, covering tasks such as sweeping the floor to clear debris, making the bed by organizing sheets and pillows, and wiping down furniture to remove dust. Staff demonstrated each action and ensured the client understood how to carry out each task effectively."
+      },
+      {
+        "index": 3,
+        "value": "Staff guided the client through the steps required to clean their room, which included sweeping the floor to gather dust and dirt, making the bed by neatly arranging the linens and pillows, and wiping down surfaces to remove any buildup of dust. Staff provided step-by-step explanations and demonstrated each task to ensure the client felt confident in completing them."
+      },
+      {
+        "index": 4,
+        "value": "Staff assisted in organizing the resident's personal space, including making the bed and sorting belongings. Staff provided verbal prompts and physical guidance, helping the resident place items in labeled bins and organize their dresser."
+      },
+      {
+        "index": 5,
+        "value": "Client engaged in housekeeping activity. Staff provided positive verbal support to encourage client’s efforts  Gentle prompts and guidance was provided to support future participation in this task."
+      },
+      {
+        "index": 6,
+        "value": "Client was unwilling to participate in housekeeping. Despite multiple prompts and assistance from staff, the resident declined to participate in the task. Staff completed the organizing and housekeeping and provided verbal prompts for future participation. "
+      }
+    ]
+  },
+  {
+    "c4": [
+      {
+        "index": 1,
+        "value": "Staff noticed the client’s body language and tone of voice indicating increased agitation. Staff provided verbal redirection to help manage symptoms or behaviors. Staff allowed the client to express their concerns without interruption, validating their feelings with statements such as, “I understand that this is upsetting for you.”"
+      },
+      {
+        "index": 2,
+        "value": "Staff noticed the client's body language and tone of voice indicating signs of agitation. Recognizing the early signs of distress, staff calmly provided verbal redirection, guiding the client through deep breathing exercises to help them relax. The client responded positively, becoming more composed and able to express their concerns openly. Staff listened attentively, validating their feelings, and offered reassurance, which helped the client regain calm."
+      },
+      {
+        "index": 3,
+        "value": "Staff noticed the client's body language and tone of voice indicating signs of agitation. Recognizing the early signs of distress, staff calmly provided verbal redirection, guiding the client through deep breathing exercises to help them relax. The client responded positively, becoming more composed and able to express their concerns openly. Staff listened attentively, validating their feelings, and offered reassurance, which helped the client regain calm."
+      },
+      {
+        "index": 4,
+        "value": "Upon noticing the client’s body language and tone of voice becoming more agitated, staff attempted verbal redirection, but the client remained upset and was unable to de-escalate. Staff patiently allowed the client to express their concerns without interruption, saying, \"I understand that this is upsetting for you.\" After the client finished speaking, staff offered additional support by suggesting a break or change of environment, which helped the client begin to calm down after some time."
+      },
+      {
+        "index": 5,
+        "value": "Staff observed the client’s body language and tone of voice showing signs of agitation. Staff provided verbal redirection, encouraging the client to focus on a different topic or activity to shift their attention. The client initially resisted but gradually became less agitated after a brief distraction, allowing staff to validate their feelings and guide them through resolving the situation. The client later expressed relief, feeling heard and understood."
+      },
+      {
+        "index": 6,
+        "value": "Staff noticed the client’s body language and tone of voice indicating rising agitation. Staff provided verbal redirection and offered validation by saying, “I understand that this is upsetting for you.” However, the client chose to withdraw and asked for some time alone. Staff respected this request, offering space while reassuring the client that they were available for support when ready. After a brief period of solitude, the client returned and was more receptive to further discussion."
+      },
+      {
+        "index": 7,
+        "value": "Staff praised the client’s efforts to communicate and regulate their emotions, reinforcing positive behaviors."
+      },
+      {
+        "index": 8,
+        "value": "Staff completed an incident report with detailed notes about the incident, including triggers, staff actions, and outcomes.  This information will be used to prevent and manage future incidents.  The team will discuss the incident during "
+      }
+    ]
+  },
+  {
+    "c5": [
+      {
+        "index": 1,
+        "value": "Staff engaged the client by asking for their input on shopping preferences.  Staff assisted in selecting items, ensuring they met the client’s dietary, budget and personal needs. The client actively participated by stating the items they preferred for pictures or list."
+      },
+      {
+        "index": 2,
+        "value": "Staff engaged the client by asking for their input on shopping preferences.  Staff assisted in selecting items, ensuring they met the client’s dietary, budget and personal needs. The client actively participated by pointing at items they wanted."
+      },
+      {
+        "index": 3,
+        "value": "Staff engaged the client by asking for their preferences regarding shopping choices. Staff provided assistance in selecting items, making sure they aligned with the client’s dietary requirements, budget, and personal tastes. The client took an active role by indicating which items they liked from a list or pictures provided."
+      },
+      {
+        "index": 4,
+        "value": "Staff involved the client by seeking their input on shopping preferences. With staff support, they carefully selected items that matched the client’s dietary needs, budget, and personal preferences. The client participated by selecting items from pictures or a list, expressing their preferences clearly."
+      },
+      {
+        "index": 5,
+        "value": "Staff initiated a conversation with the client to gather their shopping preferences. They worked together to choose items that suited the client’s diet, budget, and personal needs. The client contributed by pointing to items on a list or images they preferred."
+      },
+      {
+        "index": 6,
+        "value": "Staff engaged the client by asking for their preferences during shopping. They assisted in selecting appropriate items, ensuring they fit the client’s dietary, budgetary, and personal requirements. The client actively participated by pointing at the items they were interested in."
+      },
+      {
+        "index": 7,
+        "value": "The client was asked for their input on shopping choices, with staff guiding them in selecting products that met their dietary needs, budget, and personal preferences. The client participated by directly pointing to items they wanted."
+      },
+      {
+        "index": 8,
+        "value": "Staff asked the client for their preferences while shopping, ensuring selections aligned with their diet, budget, and personal preferences. The client engaged by pointing to desired items as staff provided support in the selection process."
+      },
+      {
+        "index": 9,
+        "value": "Staff modeled or demonstrated how to shop for specific items (e.g., comparing prices or selecting the correct size). Staff guided the client through the process, providing verbal prompts for selecting food or other products. The client participated by choosing items with assistance."
+      },
+      {
+        "index": 10,
+        "value": "Client was unwilling or unable to participate in shopping tasks. Staff offered repeated encouragement and attempts, but the client refused to engage in the task. Staff completed the shopping and documented the client’s non-participation."
+      }
+    ]
+  },
+  {
+    "c6": [
+      {
+        "index": 1,
+        "value": "Staff assisted the client in developing and managing a budget."
+      },
+      {
+        "index": 2,
+        "value": "Staff worked closely with the client to help them understand and track their finances."
+      },
+      {
+        "index": 3,
+        "value": "Staff guided the client through the process of creating and maintaining a budget."
+      },
+      {
+        "index": 4,
+        "value": "Staff had a conversation with the client about the distinction between wants and needs."
+      },
+      {
+        "index": 5,
+        "value": "Staff explained to the client the difference between essential needs and non-essential wants."
+      },
+      {
+        "index": 6,
+        "value": "Staff talked to the client about how to prioritize needs over wants."
+      },
+      {
+        "index": 7,
+        "value": "Staff helped the client go through weekly advertisements and cut out relevant coupons for grocery shopping."
+      },
+      {
+        "index": 8,
+        "value": "Staff and the client reviewed ads together and clipped coupons to use during shopping."
+      },
+      {
+        "index": 9,
+        "value": "Staff worked with the client to find and cut coupons from grocery store flyers."
+      },
+      {
+        "index": 10,
+        "value": "Staff practiced counting different denominations of money with the client."
+      },
+      {
+        "index": 11,
+        "value": "Staff worked with the client on improving their skills in counting money."
+      },
+      {
+        "index": 12,
+        "value": "Staff and the client practiced identifying and counting various bills and coins."
+      },
+      {
+        "index": 13,
+        "value": "Staff taught the client how to recognize the difference between 1, 5, 10, and 20-dollar bills."
+      },
+      {
+        "index": 14,
+        "value": "Staff instructed the client on identifying various bill denominations, such as 1, 5, 10, and 20-dollar notes."
+      },
+      {
+        "index": 15,
+        "value": "Staff worked with the client to understand and differentiate between different bill values."
+      },
+      {
+        "index": 16,
+        "value": "Staff collaborated with the client to complete their personal wishlist."
+      },
+      {
+        "index": 17,
+        "value": "Staff assisted the client in making a list of desired items."
+      },
+      {
+        "index": 18,
+        "value": "Staff and the client worked together to create a wishlist of items the client would like to purchase."
+      },
+      {
+        "index": 19,
+        "value": "Staff accompanied the client to purchase necessary items, ensuring they received the correct change."
+      },
+      {
+        "index": 20,
+        "value": "Staff supported the client during shopping and made sure they were given the right amount of change."
+      },
+      {
+        "index": 21,
+        "value": "Staff went with the client to buy required items and confirmed that the client received the proper change."
+      },
+      {
+        "index": 22,
+        "value": "Staff went with the client to buy required items and confirmed that the client received the proper change."
+      },
+      {
+        "index": 23,
+        "value": "Staff assisted the client in fulfilling the requirements to recertify their Bridge Card."
+      },
+      {
+        "index": 24,
+        "value": "Staff worked with the client to ensure they completed the necessary tasks for Bridge Card recertification."
+      },
+      {
+        "index": 25,
+        "value": "Staff facilitated and encouraged social interactions. (Baking cookies, games, practiced social skills - through role play). Staff redirected aggressive or disruptive behavior during socialization.Staff provided feedback and praise for appropriate social behavior."
+      },
+      {
+        "index": 26,
+        "value": "Staff observed and provided social prompts during interactions with staff, other clients, and/or family. Staff provided feedback and praise for appropriate social behavior. Staff redirected aggressive or disruptive behavior during socialization."
+      },
+      {
+        "index": 27,
+        "value": "Staff helped client reach out to family members to help build family bonds"
+      }
+    ]
+  },
+  {
+    "c7": [
+      {
+        "index": 1,
+        "value": "Staff facilitated and encouraged social interactions. (Baking cookies, games, practiced social skills - through role play). Staff redirected aggressive or disruptive behavior during socialization.Staff provided feedback and praise for appropriate social behavior."
+      },
+      {
+        "index": 2,
+        "value": "Staff observed and provided social prompts during interactions with staff, other clients, and/or family. Staff provided feedback and praise for appropriate social behavior. Staff redirected aggressive or disruptive behavior during socialization."
+      },
+      {
+        "index": 3,
+        "value": "Staff helped client reach out to family members to help build family bonds."
+      },
+      {
+        "index": 4,
+        "value": "Staff encouraged client to participate in group or club house functions. Staff provided feedback and praise for appropriate social behavior."
+      }
+    ]
+  },
+  {
+    "c8": [
+      {
+        "index": 1,
+        "value": "Staff confirmed the appointment time, gathered relevant medical documents or records, and prepared the client for the visit by explaining the purpose and what to expect in a simple and reassuring manner.  Confirmed medication refills with physician.  Assisted client communicate any issues or concerns.  "
+      },
+      {
+        "index": 2,
+        "value": "Transportation: Staff transported client medical/dental/mental health appointment. "
+      },
+      {
+        "index": 3,
+        "value": "During the Appointment: Staff stayed with the client throughout the appointment, providing reassurance and support. Staff provided praise for appropriate behavior and redirected client, as needed. "
+      },
+      {
+        "index": 4,
+        "value": "Post-Appointment: After the visit, staff scheduled the next appointment, reviewed instructions from the doctor and transported the client back home.  "
+      }
+    ]
+  },
+  {
+    "c9": [
+      {
+        "index": 1,
+        "value": "Staff prepared water, counted medication, stated the name and reason for each medication. Staff administered the medication as prescribed and documentation the dosage and time medication given."
+      },
+      {
+        "index": 2,
+        "value": "Staff checked the temperature, blood pressure, oxygen level and pulse of client.   "
+      },
+      {
+        "index": 3,
+        "value": "Staff applied cream, as directed to area/s of concern."
+      },
+      {
+        "index": 4,
+        "value": "Staff weighed consumer and recorded results."
+      },
+      {
+        "index": 5,
+        "value": "Staff prepared water, counted medication, stated the name and reason the medication was given. The consumer refused medication despite multiple requests and reminders regarding the importance of medication adherence. An incident report was subsequently completed by the staff."
+      }
+    ]
+  },
+  {
+    "c10": [
+      {
+        "index": 1,
+        "value": "Staff monitored the client for safety. Staff encouraged client to wear their mask, wash their hands and cover their mouth when sneezing and coughing.  "
+      },
+      {
+        "index": 2,
+        "value": "Staff monitored the client for safety. Staff taught client to use a tissue to blow their nose and proper handwashing.  "
+      },
+      {
+        "index": 3,
+        "value": "Staff reminded  and educated client on house rules. Client was educated on what is considered contraband - smoking, weapons and drugs. "
+      },
+      {
+        "index": 4,
+        "value": "Staff educated client on safety surrounding meeting people they met online or agreeing to go anywhere with a stranger"
+      },
+      {
+        "index": 5,
+        "value": "Staff provided continuous overnight monitoring. Staff provided continuous periodic checks (every 30 minutes), checking for elopement or respiratory issues. "
+      }
+    ]
+  },
+  {
+    "c11": [
+      {
+        "index": 1,
+        "value": "Staff taught client stress management/coping skills.  Staff taught/practiced deep breathing and mindfulness techniques.  Staff also instructed client on how to use sensory tools."
+      },
+      {
+        "index": 2,
+        "value": "Staff taught coping strategies for client to implement when becoming upset - counting to ten, retreating to a quiet area when upset and asking staff for a break or help. "
+      },
+      {
+        "index": 3,
+        "value": "Client actively participated in activity."
+      }
+    ]
+  },
+  {
+    "p1": [
+      {
+        "index": 1,
+        "value": "Staff assisted the client during mealtime by ensuring that all necessary tools (utensils, napkin, etc.) were available for the client. Staff guided the client on how to cut food into appropriate bite-sized pieces, providing verbal cues and demonstration to ensure the client could manage the food safely. In addition, staff provided instruction on proper use of silverware, demonstrating how to hold and maneuver the fork and knife. The client was encouraged to practice these skills throughout the meal, with staff offering guidance and support to ensure success."
+      },
+      {
+        "index": 2,
+        "value": "Staff  worked with the client on reinforcing table manners, including using polite eating behaviors such as chewing with the mouth closed, taking small bites, and maintaining appropriate mealtime etiquette. The client was given the opportunity to engage in each of these steps with verbal reminders and positive encouragement."
+      },
+      {
+        "index": 3,
+        "value": "Staff assisted the client with eating their meal due to difficulty managing independent eating. The client was unable to hold the utensils properly or cut the food into manageable pieces, so staff provided full assistance throughout the meal. Staff cut the client’s food into small, bite-sized pieces and helped the client use the fork and spoon to bring food to their mouth. Staff ensured the client was seated comfortably and offered verbal prompts to encourage eating at a steady pace."
+      },
+      {
+        "index": 4,
+        "value": "Throughout the meal, staff maintained a calm and supportive demeanor, offering positive reinforcement and gentle encouragement. Staff helped the client with each step, ensuring that the client had enough time to chew and swallow before offering the next bite. The staff also provided verbal cues to remind the client to chew with their mouth closed and to take small bites."
+      },
+      {
+        "index": 5,
+        "value": "Due to the client’s difficulty with coordination and motor skills, staff provided necessary hand-over-hand assistance, gently guiding the client’s hand to the utensils and ensuring proper use of the silverware. The client appeared to accept the assistance without signs of distress and showed minimal resistance during the process.\""
+      },
+      {
+        "index": 6,
+        "value": "The client demonstrated cooperation with staff assistance, showing no signs of agitation or refusal to eat. Staff monitored the client’s progress throughout the meal, ensuring that the food was consumed in a safe and manageable manner. The client consumed the meal with staff support, and staff continued to encourage the client to eat in small portions and at a comfortable pace."
+      },
+      {
+        "index": 7,
+        "value": "Staff continued to offer support, prompting the client in a positive, non-pressuring manner, to encourage eating. After several attempts, the client remained non-compliant, and staff respected the client’s decision. As a result, an incident report was completed to document the situation, detailing the staff’s actions, the client's refusal to eat, and the encouragement provided throughout the meal."
+      }
+    ]
+  },
+  {
+    "p2": [
+      {
+        "index": 1,
+        "value": "Staff provided assistance in changing the client’s soiled clothes and diaper. Prior to changing the clothes, staff ensured the client was thoroughly cleaned, using wipes to carefully cleanse the client’s skin to prevent discomfort or potential skin irritation. Staff maintained the client’s privacy and dignity throughout the process while ensuring a safe and comfortable environment. After cleaning, staff assisted the client with changing into fresh clothes and a clean diaper, ensuring the client was positioned properly for comfort and to prevent any potential issues with the fit or security of the diaper."
+      },
+      {
+        "index": 2,
+        "value": "Staff assisted the client with toileting. During this process, the client was instructed on proper hygiene techniques, including how to wipe effectively and the importance of wiping from front to back for cleanliness and to prevent infection. Staff provided verbal guidance and reinforcement to ensure the client understood the process. Additionally, the client was instructed on the proper technique for handwashing, including the steps of using soap, scrubbing for at least 20 seconds, and rinsing and drying hands thoroughly. Staff made sure the client performed handwashing independently, ensuring it was done properly."
+      }
+    ]
+  },
+  {
+    "p3": [
+      {
+        "index": 1,
+        "value": "Staff provided thorough instruction to the client on how to bathe, breaking down the steps to ensure clarity. The client was guided through applying soap to a washcloth, using proper technique to scrub various parts of the body. Staff demonstrated how to effectively rinse off soap and thoroughly dry the body with a towel, offering assistance as needed to ensure the client felt comfortable and safe. Throughout the process, staff provided verbal prompts and encouragement to help the client gain confidence and independence in personal hygiene tasks."
+      },
+      {
+        "index": 2,
+        "value": "Staff demonstrated how to brush and floss teeth, carefully explaining the proper technique for holding the toothbrush, applying toothpaste, and using gentle circular motions to clean all surfaces of the teeth. Staff also demonstrated the process of flossing between teeth, showing the client how to properly maneuver the floss to remove debris and maintain good oral hygiene. Verbal support and reminders were provided during the demonstration."
+      },
+      {
+        "index": 3,
+        "value": "Staff then instructed the client on grooming, including hair care (combing and brushing), skin care (applying lotion and shaving), and nail care. The client was guided on the steps of each grooming activity, with staff offering hands-on assistance when necessary. For hair care, staff demonstrated how to properly comb and brush to prevent tangling, and for skin care, they explained the importance of moisturizing after bathing. The client was instructed on nail care, including how to trim nails carefully and hygienically. Staff continued to offer verbal prompts and positive reinforcement to encourage participation."
+      },
+      {
+        "index": 4,
+        "value": "The client successfully completed most hygiene tasks.  Staff used verbal cues to prompt the client and offered physical assistance when needed, particularly with tasks that required fine motor skills. "
+      },
+      {
+        "index": 5,
+        "value": "Despite multiple requests and gentle encouragement from staff, the client refused to participate in certain aspects of their hygiene routine. Staff made several attempts to engage the client in these tasks, explaining their importance and providing positive reinforcement, but the client remained noncompliant and disengaged. Staff documented the refusal to participate and will assess further strategies to increase motivation and participation in future sessions."
+      }
+    ]
+  },
+  {
+    "p4": [
+      {
+        "index": 1,
+        "value": "Staff worked closely with the client on fine motor skills involved in buttoning, zipping, and fastening various types of clothing. The client was able to practice these tasks with staff providing verbal cues, assistance as needed, and encouragement to promote independent dressing skills."
+      },
+      {
+        "index": 2,
+        "value": "Staff provided detailed instruction to the client on how to coordinate and put on clothing, emphasizing the steps involved in dressing. The client was guided through the process of selecting appropriate clothing, with staff offering verbal prompts and encouragement throughout. Staff demonstrated how to put on socks and shoes, including how to tie the laces, offering step-by-step guidance. Verbal reinforcement and positive encouragement were provided throughout the process, ensuring the client felt supported and confident in their abilities."
+      },
+      {
+        "index": 3,
+        "value": "Staff provided detailed instruction to the client on how to coordinate and put on clothing, emphasizing the steps involved in dressing. Staff taught the process of selecting appropriate clothing and undergarments. Staff demonstrated how to put on socks and shoes, including how to tie the laces, offering step-by-step guidance. Client refused to participate despite positive encouragement and repeated attempts."
+      },
+      {
+        "index": 4,
+        "value": "Staff worked closely with the client on fine motor skills involved in buttoning, zipping, and fastening various types of clothing. The client was able to practice these tasks with staff providing verbal cues, assistance as needed, and encouragement to promote independent dressing skills."
+      }
+    ]
+  },
+  {
+    "p5": [
+      {
+        "index": 1,
+        "value": "Staff worked on practicing transfers with the client today, including transferring to and from the bed, wheelchair, and chair. Staff followed correct body mechanics and provided hands-on assistance as needed. The client actively participated in the transfers and showed progress in the ability to assist with positioning. No incidents or difficulties occurred during the session.\""
+      },
+      {
+        "index": 2,
+        "value": "Transfer training was conducted with the client, focusing on moving from the bed to the wheelchair and chair. Staff used proper lifting techniques, ensuring the client was comfortable and secure throughout each transfer. The client demonstrated understanding of the process, though some assistance was required for stability during transitions. No challenges were encountered during the session.\""
+      },
+      {
+        "index": 3,
+        "value": "Staff practiced transferring the client from the bed to the wheelchair and chair. Demonstrated proper techniques, ensuring client safety and comfort during each transfer. The client was unwilling to participate today despite verbal encouragement and multiple requests.  Client was reminded of the importance of this skill and encouraged to participate in the next opportunity"
+      },
+      {
+        "index": 4,
+        "value": "Staff practiced transferring  to bed, wheelchair or chair with client. "
+      }
+    ]
+  },
+  {
+    "p6": [
+      {
+        "index": 1,
+        "value": "Staff demonstrated/instructed medication management skills- scheduling and measuring dosage with client, reading the label, looking at possible side effects, ensuring it is the correct medication. Client participated and practiced in the activity. "
+      },
+      {
+        "index": 2,
+        "value": "Staff demonstrated/instructed medication management skills- scheduling and measuring dosage, reading side effects, etc.  Client refused to participate in the activity despite encouragement and multiple attempts from staff. "
+      }
+    ]
+  },
+  {
+    "p7": [
+      {
+        "index": 1,
+        "value": "Staff assisted with Ambulating (Walking independently with or without Assistive Devices, Walker/Canes, and navigating obstacles while ambulating. "
+      },
+      {
+        "index": 2,
+        "value": "Client refused to participate in ambulating activity. "
+      }
+    ]
+  }
+]
