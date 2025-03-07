@@ -9,12 +9,26 @@ class MetaBoxGenerator extends BaseController
 
     private $meta_boxes = []; // Store all configurations
 
+    /**
+     * Register meta boxes and the save_post action.
+     */
     public function register()
     {
         add_action('add_meta_boxes', [$this, 'createMetaBoxes']);
         add_action('save_post', [$this, 'saveFields']);
     }
 
+    /**
+     * Set configuration for a meta box.
+     *
+     * @param string $cpt          Post type.
+     * @param array  $fields       List of meta fields.
+     * @param string $nonce_name   Nonce field name.
+     * @param string $nonce_action Nonce action.
+     * @param string $template_path Template file for meta box.
+     * @param string $title        Meta box title.
+     * @return $this
+     */
     public function setConfig($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title)
     {
         $this->meta_boxes[] = [
@@ -25,16 +39,19 @@ class MetaBoxGenerator extends BaseController
             'template_path' => $template_path,
             'title'         => $title,
         ];
-        return $this; // Enable method chaining
+        return $this;
     }
 
+    /**
+     * Create meta boxes based on configuration.
+     */
     public function createMetaBoxes()
     {
         foreach ($this->meta_boxes as $meta_box)
         {
             add_meta_box(
-                "{$meta_box['cpt']}_" . md5($meta_box['template_path']), // Unique ID
-                $meta_box['title'], // Dynamic title
+                "{$meta_box['cpt']}_" . md5($meta_box['template_path']),
+                $meta_box['title'],
                 function ($post) use ($meta_box)
                 {
                     require_once "$this->plugin_path/src/templates/meta-box/{$meta_box['template_path']}";
@@ -61,22 +78,23 @@ class MetaBoxGenerator extends BaseController
         }
     }
 
+    /**
+     * Save meta fields on post save.
+     */
     public function saveFields($post_id)
     {
-        // Prevent autosave, revision, or wrong post type.
+        // Prevent autosave, revisions, or wrong post type.
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if (!isset($_POST['post_type']) || $_POST['post_type'] !== 'record') return;
         if (!current_user_can('edit_post', $post_id)) return;
 
         foreach ($this->meta_boxes as $meta_box)
         {
-            // Validate nonce for each meta box individually.
-            if (
-                !isset($_POST[$meta_box['nonce_name']]) ||
-                !wp_verify_nonce($_POST[$meta_box['nonce_name']], $meta_box['nonce_action'])
-            )
+            // Validate nonce.
+            if (!isset($_POST[$meta_box['nonce_name']]) || !wp_verify_nonce($_POST[$meta_box['nonce_name']], $meta_box['nonce_action']))
             {
-                continue; // Skip this meta box.
+                // error_log("Nonce validation failed for {$meta_box['nonce_name']}");
+                continue;
             }
             foreach ($meta_box['fields'] as $field)
             {
@@ -84,9 +102,29 @@ class MetaBoxGenerator extends BaseController
                 {
                     if (is_array($_POST[$field]))
                     {
-                        // Use recursive sanitization for multi-dimensional arrays.
-                        $sanitized_array = $this->recursive_sanitize($_POST[$field]);
-                        update_post_meta($post_id, '_' . $field, $sanitized_array);
+                        // For the _checkboxes field, flatten the array.
+                        if ($field === '_checkboxes')
+                        {
+                            $data = $_POST[$field];
+                            $flattened = [];
+                            // Expecting a structure like: [ c2 => [ 0 => 'Option one', 6 => 'Option two' ] ]
+                            foreach ($data as $key => $value)
+                            {
+                                if (is_array($value))
+                                {
+                                    // Flatten: ignore the outer key (which should match _checkbox_select) and keep the inner array.
+                                    $flattened = $value;
+                                    break;
+                                }
+                            }
+                            $sanitized_array = $this->recursive_sanitize($flattened);
+                            update_post_meta($post_id, '_' . $field, $sanitized_array);
+                        }
+                        else
+                        {
+                            $sanitized_array = $this->recursive_sanitize($_POST[$field]);
+                            update_post_meta($post_id, '_' . $field, $sanitized_array);
+                        }
                     }
                     else
                     {

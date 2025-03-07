@@ -1,35 +1,25 @@
 <?php
 
-/**
- * Class CheckboxSelect
- *
- * Dynamically renders a select dropdown based on JSON data and outputs a list
- * of checkboxes for the chosen option. Each checkbox’s name is in the format:
- * check[{outer_key}][{index}], and its value is the inner "value" field.
- *
- * @package PatientRecords
- */
-
 namespace Inc\Components;
 
 class CheckboxSelect
 {
     public $data = [];
     public $json;
+    // Holds saved (flat) checkbox values, e.g. [0 => 'Option one', 6 => 'Option two']
+    public $savedCheckboxes = [];
 
     /**
      * Constructor.
      *
-     * @param string $json Source JSON data as a string or a file path.
-     * @param bool   $isFile If true, $json is treated as a file path.
+     * @param string $json Source JSON data or file path.
+     * @param bool   $isFile Whether to treat $json as a file path.
      */
     public function __construct($json, $isFile = true)
     {
         if ($isFile && file_exists($json))
         {
             $jsonContent = file_get_contents($json);
-
-            // save json into a variable
             $this->json = json_decode($jsonContent);
         }
         else
@@ -43,9 +33,18 @@ class CheckboxSelect
         }
     }
 
+    /**
+     * Set saved checkbox values.
+     *
+     * @param array $data Flat array of saved checkbox values.
+     */
+    public function setSavedCheckboxes($data)
+    {
+        $this->savedCheckboxes = $data;
+    }
 
     /**
-     * Get outer keys (e.g., c1, c11, p1, p7).
+     * Get available outer keys (e.g., "c1", "c2", "p5") from the JSON data.
      *
      * @return array
      */
@@ -60,7 +59,7 @@ class CheckboxSelect
     }
 
     /**
-     * Get data by outer key.
+     * Get data for a given outer key.
      *
      * @param string $key
      * @return array
@@ -80,14 +79,14 @@ class CheckboxSelect
     /**
      * Render the select dropdown.
      *
-     * @param string $selected The currently selected outer key.
-     * @param string $selectName The name attribute for the select element.
+     * @param string $selected The currently selected key.
+     * @param string $selectName The name attribute for the select.
      * @return string HTML output.
      */
     public function renderSelect($selected = '', $selectName = 'select_key')
     {
         $options = $this->getOptions();
-        $html = '<select name="' . esc_attr($selectName) . '" id="' . esc_attr($selectName) . ' value="' . esc_attr($selected) . '">';
+        $html = '<select name="' . esc_attr($selectName) . '" id="' . esc_attr($selectName) . '" value="' . esc_attr($selected) . '">';
         $html .= '<option value="" hidden>Select an option</option>';
         foreach ($options as $option)
         {
@@ -101,9 +100,10 @@ class CheckboxSelect
     /**
      * Render checkboxes for the provided outer key.
      *
-     * Each checkbox name is formatted as check[{$outer_key}][{index}].
+     * The checkbox input names will be in the format:
+     * _checkboxes[<outerKey>][<index>]
      *
-     * @param string $outerKey The outer key (e.g., c1).
+     * @param string $outerKey The outer key (e.g., "c2").
      * @param string $checkboxPrefix The prefix for the checkbox names.
      * @return string HTML output.
      */
@@ -115,19 +115,23 @@ class CheckboxSelect
             return '<p>No items available for this option.</p>';
         }
         $html = '<div class="tabs-container">';
-        // We'll output one <div> with an id equal to the outer key.
+        // Output a div with id equal to the outer key
         $html .= '<div id="' . esc_attr($outerKey) . '" class="tab-content active">';
         $html .= '<ul>';
+        // Retrieve saved checkbox data. Since we save a flat array, use it directly.
+        $saved = $this->savedCheckboxes;
         foreach ($data as $item)
         {
-            // Each item is expected to have an "index" and "value".
+            // Each item must have an "index" and a "value"
             $index = isset($item['index']) ? intval($item['index']) : 0;
-            $value = isset($item['value']) ? $item['value'] : '';
+            $value = isset($item['value']) ? trim($item['value']) : '';
             $inputName = sprintf('%s[%s][%d]', esc_attr($checkboxPrefix), esc_attr($outerKey), $index);
             $inputId   = sprintf('%s-%s-%d', esc_attr($checkboxPrefix), esc_attr($outerKey), $index);
+            // Check if the flat saved data has an entry at this index that equals the checkbox value.
+            $checked = (isset($saved[$index]) && $saved[$index] == $value) ? 'checked' : '';
             $html .= '<li>';
-            $html .= '<input type="checkbox" name="' . $inputName . '" id="' . $inputId . '" value="' . esc_attr($value) . '">';
-            $html .= '<label for="' . $inputId . '">' . esc_html($value) . '</label>';
+            $html .= '<input type="checkbox" name="' . esc_attr($inputName) . '" id="' . esc_attr($inputId) . '" value="' . esc_attr($value) . '" ' . $checked . '>';
+            $html .= '<label for="' . esc_attr($inputId) . '">' . esc_html($value) . '</label>';
             $html .= '</li>';
         }
         $html .= '</ul>';
@@ -137,26 +141,20 @@ class CheckboxSelect
     }
 
     /**
-     * Render the complete component.
-     *
-     * This outputs the select dropdown and, if a key is selected, the associated checkboxes.
+     * Render the complete component (select + checkboxes).
      *
      * @param string $selectedKey The selected outer key.
-     * @param string $selectName  The name attribute for the select element.
+     * @param string $selectName The name attribute for the select.
      * @param string $checkboxPrefix The prefix for checkbox names.
      * @return string HTML output.
      */
     public function renderComponent($selectedKey = '', $selectName = 'select_key', $checkboxPrefix = 'check')
     {
         $html  = '<div class="meta-box-select-component">';
-        $html .= '<div class="select-wrapper">';
-        $html .= $this->renderSelect($selectedKey, $selectName);
-        $html .= '</div>';
+        $html .= '<div class="select-wrapper">' . $this->renderSelect($selectedKey, $selectName) . '</div>';
         if (!empty($selectedKey))
         {
-            $html .= '<div class="tabs-wrapper">';
-            $html .= $this->renderCheckboxes($selectedKey, $checkboxPrefix);
-            $html .= '</div>';
+            $html .= '<div class="tabs-wrapper">' . $this->renderCheckboxes($selectedKey, $checkboxPrefix) . '</div>';
         }
         $html .= '</div>';
         return $html;

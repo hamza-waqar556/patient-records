@@ -38,9 +38,9 @@ $titles = [
 ?>
 
 <div id="for-community">
-    <div class="inner-heading">
+    <!-- <div class="inner-heading">
         <h3>Community Living Supports Objectives</h3>
-    </div>
+    </div> -->
 
     <?php
     // Loop through each objective.
