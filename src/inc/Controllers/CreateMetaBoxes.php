@@ -2,12 +2,16 @@
 
 namespace Inc\Controllers;
 
-use \Inc\Base\BaseController;
-use \Inc\Api\MetaBoxGenerator;
+use Inc\Base\BaseController;
+use Inc\Api\MetaBoxGenerator;
 
+/**
+ * CreateMetaBoxes
+ *
+ * Registers meta boxes for the plugin and defines configuration for each.
+ */
 class CreateMetaBoxes extends BaseController
 {
-
     public $mb_generator;
     public $meta_boxes = [];
 
@@ -26,46 +30,60 @@ class CreateMetaBoxes extends BaseController
      */
     public function setMetaBoxes()
     {
-        // Each meta box configuration: [ post_type, fields, nonce name, nonce action, template file, title ]
         $this->meta_boxes = [
             [
-                'record',
-                ['_member', '_mhwin_id', '_date', '_crsp', '_facility', '_goals', '_pc_hours', '_cls_hours'],
-                'record_patient_details_nonce',
-                'record_patient_details_nonce_action',
-                'patient-details.php',
-                'Patient Details',
+                'cpt'           => 'record',
+                'fields'        => [
+                    '_member',
+                    '_mhwin_id',
+                    '_date',
+                    '_crsp',
+                    '_facility',
+                    '_goals',
+                    '_pc_hours',
+                    '_cls_hours'
+                ],
+                'nonce_name'    => 'record_patient_details_nonce',
+                'nonce_action'  => 'record_patient_details_nonce_action',
+                'template_path' => 'patient-details.php',
+                'title'         => 'Patient Details',
             ],
             [
-                'record',
-                ['_c'],
-                'record_living_support_nonce',
-                'record_living_support_nonce_action',
-                'living-supports.php',
-                'Community Living Support Objectives',
+                'cpt'           => 'record',
+                'fields'        => ['_c'],
+                'nonce_name'    => 'record_living_support_nonce',
+                'nonce_action'  => 'record_living_support_nonce_action',
+                'template_path' => 'living-supports.php',
+                'title'         => 'Community Living Support Objectives',
             ],
             [
-                'record',
-                ['_p'],
-                'record_personal_care_nonce',
-                'record_personal_care_nonce_action',
-                'personal-care.php',
-                'Personal Care Objectives',
+                'cpt'           => 'record',
+                'fields'        => ['_p'],
+                'nonce_name'    => 'record_personal_care_nonce',
+                'nonce_action'  => 'record_personal_care_nonce_action',
+                'template_path' => 'personal-care.php',
+                'title'         => 'Personal Care Objectives',
             ],
             [
-                'record',
-                ['_member', '_mhwin_id', '_date', '_staff_initials', '_checkbox_select', '_task_id', '_checkboxes', '_add_note', '_staff_type', '_progress_code'],
-                'record_progress_report_nonce',
-                'record_progress_report_nonce_action',
-                'progress-report.php',
-                'Progress Report',
+                'cpt'           => 'record',
+                'fields'        => [],
+                'nonce_name'    => 'record_progress_report_nonce',
+                'nonce_action'  => 'record_progress_report_nonce_action',
+                'template_path' => 'progress-report-repeater.php',
+                'title'         => 'Progress Report',
             ],
         ];
 
         foreach ($this->meta_boxes as $meta_box)
         {
-            list($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title) = $meta_box;
-            $this->mb_generator->setConfig($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title);
+            $this->mb_generator->setConfig(
+                $meta_box['cpt'],
+                $meta_box['fields'],
+                $meta_box['nonce_name'],
+                $meta_box['nonce_action'],
+                $meta_box['template_path'],
+                $meta_box['title']
+            );
         }
     }
 }

@@ -2,12 +2,16 @@
 
 namespace Inc\Api;
 
-use \Inc\Base\BaseController;
+use Inc\Base\BaseController;
 
+/**
+ * MetaBoxGenerator
+ *
+ * Generates meta boxes based on configuration and handles saving of meta data.
+ */
 class MetaBoxGenerator extends BaseController
 {
-
-    private $meta_boxes = []; // Store all configurations
+    private $meta_boxes = [];
 
     /**
      * Register meta boxes and the save_post action.
@@ -20,14 +24,6 @@ class MetaBoxGenerator extends BaseController
 
     /**
      * Set configuration for a meta box.
-     *
-     * @param string $cpt          Post type.
-     * @param array  $fields       List of meta fields.
-     * @param string $nonce_name   Nonce field name.
-     * @param string $nonce_action Nonce action.
-     * @param string $template_path Template file for meta box.
-     * @param string $title        Meta box title.
-     * @return $this
      */
     public function setConfig($cpt, $fields, $nonce_name, $nonce_action, $template_path, $title)
     {
@@ -43,7 +39,7 @@ class MetaBoxGenerator extends BaseController
     }
 
     /**
-     * Create meta boxes based on configuration.
+     * Create meta boxes.
      */
     public function createMetaBoxes()
     {
@@ -54,7 +50,7 @@ class MetaBoxGenerator extends BaseController
                 $meta_box['title'],
                 function ($post) use ($meta_box)
                 {
-                    require_once "$this->plugin_path/src/templates/meta-box/{$meta_box['template_path']}";
+                    require_once "{$this->plugin_path}/src/templates/meta-box/{$meta_box['template_path']}";
                 },
                 $meta_box['cpt'],
                 'normal',
@@ -65,6 +61,9 @@ class MetaBoxGenerator extends BaseController
 
     /**
      * Recursively sanitize data.
+     *
+     * @param mixed $data Data to sanitize.
+     * @return mixed Sanitized data.
      */
     protected function recursive_sanitize($data)
     {
@@ -79,52 +78,57 @@ class MetaBoxGenerator extends BaseController
     }
 
     /**
-     * Save meta fields on post save.
+     * Save meta fields.
+     * For repeater groups, all data is saved under __progress_reports.
+     * This method also flattens the checkboxes array if it was saved with an extra key.
      */
     public function saveFields($post_id)
     {
-        // Prevent autosave, revisions, or wrong post type.
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if (!isset($_POST['post_type']) || $_POST['post_type'] !== 'record') return;
         if (!current_user_can('edit_post', $post_id)) return;
 
         foreach ($this->meta_boxes as $meta_box)
         {
-            // Validate nonce.
-            if (!isset($_POST[$meta_box['nonce_name']]) || !wp_verify_nonce($_POST[$meta_box['nonce_name']], $meta_box['nonce_action']))
+            if (
+                !isset($_POST[$meta_box['nonce_name']]) ||
+                !wp_verify_nonce($_POST[$meta_box['nonce_name']], $meta_box['nonce_action'])
+            )
             {
-                // error_log("Nonce validation failed for {$meta_box['nonce_name']}");
                 continue;
             }
+
+            // Save repeater data if present.
+            if (isset($_POST['progress_reports']))
+            {
+                $data = $_POST['progress_reports'];
+                $sanitized = $this->recursive_sanitize($data);
+                // Loop through each group and flatten the checkboxes if needed.
+                foreach ($sanitized as &$group)
+                {
+                    if (isset($group['checkboxes']) && is_array($group['checkboxes']))
+                    {
+                        $keys = array_keys($group['checkboxes']);
+                        // If the first key is non-numeric, assume it's nested.
+                        if (!empty($keys) && !is_numeric($keys[0]))
+                        {
+                            // Flatten the array using the current checkbox_select value.
+                            $group['checkboxes'] = isset($group['checkboxes'][$group['checkbox_select']]) ? $group['checkboxes'][$group['checkbox_select']] : [];
+                        }
+                    }
+                }
+                update_post_meta($post_id, '__progress_reports', $sanitized);
+            }
+
+            // Save other fields if defined.
             foreach ($meta_box['fields'] as $field)
             {
                 if (isset($_POST[$field]))
                 {
                     if (is_array($_POST[$field]))
                     {
-                        // For the _checkboxes field, flatten the array.
-                        if ($field === '_checkboxes')
-                        {
-                            $data = $_POST[$field];
-                            $flattened = [];
-                            // Expecting a structure like: [ c2 => [ 0 => 'Option one', 6 => 'Option two' ] ]
-                            foreach ($data as $key => $value)
-                            {
-                                if (is_array($value))
-                                {
-                                    // Flatten: ignore the outer key (which should match _checkbox_select) and keep the inner array.
-                                    $flattened = $value;
-                                    break;
-                                }
-                            }
-                            $sanitized_array = $this->recursive_sanitize($flattened);
-                            update_post_meta($post_id, '_' . $field, $sanitized_array);
-                        }
-                        else
-                        {
-                            $sanitized_array = $this->recursive_sanitize($_POST[$field]);
-                            update_post_meta($post_id, '_' . $field, $sanitized_array);
-                        }
+                        $sanitized = $this->recursive_sanitize($_POST[$field]);
+                        update_post_meta($post_id, '_' . $field, $sanitized);
                     }
                     else
                     {

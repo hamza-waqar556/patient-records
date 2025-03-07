@@ -2,12 +2,21 @@
 
 namespace Inc\Components;
 
+/**
+ * CheckboxSelect
+ *
+ * Loads JSON data for service options and renders a dynamic select and checkboxes.
+ * Supports keyword replacement (e.g. replacing “client” or “consumer” with the member name)
+ * and renders the checkboxes as a flat array (no extra nesting).
+ */
 class CheckboxSelect
 {
     public $data = [];
     public $json;
-    // Holds saved (flat) checkbox values, e.g. [0 => 'Option one', 6 => 'Option two']
+    // Holds saved checkbox values for a group; expected as a flat array: [index => value]
     public $savedCheckboxes = [];
+    // Holds the member value for keyword replacement.
+    public $member = '';
 
     /**
      * Constructor.
@@ -20,12 +29,12 @@ class CheckboxSelect
         if ($isFile && file_exists($json))
         {
             $jsonContent = file_get_contents($json);
-            $this->json = json_decode($jsonContent);
         }
         else
         {
             $jsonContent = $json;
         }
+        $this->json = json_decode($jsonContent);
         $this->data = json_decode($jsonContent, true);
         if (!is_array($this->data))
         {
@@ -36,7 +45,7 @@ class CheckboxSelect
     /**
      * Set saved checkbox values.
      *
-     * @param array $data Flat array of saved checkbox values.
+     * @param array $data Saved checkbox data for the current group (flat array expected).
      */
     public function setSavedCheckboxes($data)
     {
@@ -44,9 +53,19 @@ class CheckboxSelect
     }
 
     /**
-     * Get available outer keys (e.g., "c1", "c2", "p5") from the JSON data.
+     * Set the member value for keyword replacement.
      *
-     * @return array
+     * @param string $member
+     */
+    public function setMember($member)
+    {
+        $this->member = $member;
+    }
+
+    /**
+     * Get available outer keys from the JSON data.
+     *
+     * @return array List of keys.
      */
     public function getOptions()
     {
@@ -61,8 +80,8 @@ class CheckboxSelect
     /**
      * Get data for a given outer key.
      *
-     * @param string $key
-     * @return array
+     * @param string $key The outer key.
+     * @return array Data for the key.
      */
     public function getDataByKey($key)
     {
@@ -77,6 +96,23 @@ class CheckboxSelect
     }
 
     /**
+     * Normalize text for comparison.
+     *
+     * Lowercases, trims, and collapses whitespace to ensure that differences
+     * between the saved value and display value do not prevent a match.
+     *
+     * @param string $text The text to normalize.
+     * @return string Normalized text.
+     */
+    private function normalizeText($text)
+    {
+        $text = trim($text);
+        $text = mb_strtolower($text, 'UTF-8');
+        $text = preg_replace('/\s+/', ' ', $text);
+        return $text;
+    }
+
+    /**
      * Render the select dropdown.
      *
      * @param string $selected The currently selected key.
@@ -86,7 +122,7 @@ class CheckboxSelect
     public function renderSelect($selected = '', $selectName = 'select_key')
     {
         $options = $this->getOptions();
-        $html = '<select name="' . esc_attr($selectName) . '" id="' . esc_attr($selectName) . '" value="' . esc_attr($selected) . '">';
+        $html = '<select name="' . esc_attr($selectName) . '" id="' . esc_attr($selectName) . '">';
         $html .= '<option value="" hidden>Select an option</option>';
         foreach ($options as $option)
         {
@@ -98,13 +134,16 @@ class CheckboxSelect
     }
 
     /**
-     * Render checkboxes for the provided outer key.
+     * Render checkboxes for the given outer key.
      *
-     * The checkbox input names will be in the format:
-     * _checkboxes[<outerKey>][<index>]
+     * The checkbox names will be generated as a flat array:
+     * e.g. progress_reports[<group_index>][checkboxes][<index>]
+     * (no extra nesting by the selected key is added).
+     * Performs keyword replacement if a member is provided and uses normalization
+     * to compare saved values to the generated display values.
      *
-     * @param string $outerKey The outer key (e.g., "c2").
-     * @param string $checkboxPrefix The prefix for the checkbox names.
+     * @param string $outerKey The outer key (e.g. "p3") used only for rendering.
+     * @param string $checkboxPrefix The prefix for checkbox names (should include group index).
      * @return string HTML output.
      */
     public function renderCheckboxes($outerKey, $checkboxPrefix = 'check')
@@ -115,47 +154,37 @@ class CheckboxSelect
             return '<p>No items available for this option.</p>';
         }
         $html = '<div class="tabs-container">';
-        // Output a div with id equal to the outer key
         $html .= '<div id="' . esc_attr($outerKey) . '" class="tab-content active">';
         $html .= '<ul>';
-        // Retrieve saved checkbox data. Since we save a flat array, use it directly.
-        $saved = $this->savedCheckboxes;
+        // Use the saved checkboxes as a flat array.
+        $savedForKey = $this->savedCheckboxes;
         foreach ($data as $item)
         {
-            // Each item must have an "index" and a "value"
             $index = isset($item['index']) ? intval($item['index']) : 0;
             $value = isset($item['value']) ? trim($item['value']) : '';
-            $inputName = sprintf('%s[%s][%d]', esc_attr($checkboxPrefix), esc_attr($outerKey), $index);
+            if (!empty($this->member))
+            {
+                $replacement = strtoupper($this->member);
+                $value = preg_replace('/\b(the\s+)?(client|consumer)\b/i', $replacement, $value);
+            }
+            $savedValue   = isset($savedForKey[$index]) ? sanitize_text_field($savedForKey[$index]) : '';
+            $displayValue = sanitize_text_field($value);
+            $normalizedSaved   = $this->normalizeText($savedValue);
+            $normalizedDisplay = $this->normalizeText($displayValue);
+            $checked = ($normalizedSaved === $normalizedDisplay) ? 'checked' : '';
+
+            // Generate input name as a flat array element.
+            $inputName = sprintf('%s[%d]', esc_attr($checkboxPrefix), $index);
+            // Use the outer key only in the ID for uniqueness.
             $inputId   = sprintf('%s-%s-%d', esc_attr($checkboxPrefix), esc_attr($outerKey), $index);
-            // Check if the flat saved data has an entry at this index that equals the checkbox value.
-            $checked = (isset($saved[$index]) && $saved[$index] == $value) ? 'checked' : '';
+
             $html .= '<li>';
-            $html .= '<input type="checkbox" name="' . esc_attr($inputName) . '" id="' . esc_attr($inputId) . '" value="' . esc_attr($value) . '" ' . $checked . '>';
-            $html .= '<label for="' . esc_attr($inputId) . '">' . esc_html($value) . '</label>';
+            $html .= '<input type="checkbox" name="' . esc_attr($inputName) . '" id="' . esc_attr($inputId) . '" value="' . esc_attr($displayValue) . '" ' . $checked . '>';
+            $html .= '<label for="' . esc_attr($inputId) . '">' . esc_html($displayValue) . '</label>';
             $html .= '</li>';
         }
         $html .= '</ul>';
-        $html .= '</div>'; // close tab-content
-        $html .= '</div>'; // close tabs-container
-        return $html;
-    }
-
-    /**
-     * Render the complete component (select + checkboxes).
-     *
-     * @param string $selectedKey The selected outer key.
-     * @param string $selectName The name attribute for the select.
-     * @param string $checkboxPrefix The prefix for checkbox names.
-     * @return string HTML output.
-     */
-    public function renderComponent($selectedKey = '', $selectName = 'select_key', $checkboxPrefix = 'check')
-    {
-        $html  = '<div class="meta-box-select-component">';
-        $html .= '<div class="select-wrapper">' . $this->renderSelect($selectedKey, $selectName) . '</div>';
-        if (!empty($selectedKey))
-        {
-            $html .= '<div class="tabs-wrapper">' . $this->renderCheckboxes($selectedKey, $checkboxPrefix) . '</div>';
-        }
+        $html .= '</div>';
         $html .= '</div>';
         return $html;
     }
