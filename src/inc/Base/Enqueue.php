@@ -48,6 +48,7 @@ class Enqueue extends BaseController
             'plugin'  => $plugin,
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'   => wp_create_nonce('generate_pdf_nonce'),
+            'nonce_mhwin'   => wp_create_nonce("fetch_mhwin_ids_nonce"),
         ]);
     }
 }

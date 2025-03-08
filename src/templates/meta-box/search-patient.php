@@ -32,18 +32,31 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
 
 <div class="form1-wrapper">
 
+    <!-- This is the Hidden Data -->
     <div class="input-rows">
         <input type="hidden" name="_post_data" id="_post_data" value="<?php echo esc_attr(json_encode($results)) ?>">
     </div>
 
+    <!-- Search For AutoFill -->
     <div class="input-rows">
         <div class="input-wrapper w-half">
-            <label for="_search_member">member</label>
+            <label for="_search_member">Member</label>
             <input type="text" name="_search_member" value="<?php echo esc_attr($member); ?>" id="_search_member" placeholder="Member">
         </div>
         <div class="input-wrapper w-half">
             <label for="_search_mhwin_id">MHWIN ID#</label>
-            <input type="text" name="_search_mhwin_id" value="<?php echo esc_attr($mhwin_id); ?>" id="_search_mhwin_id" placeholder="MHWIN ID#">
+            <div class="select-wrapper w-half">
+                <select name="_search_mhwin_id" id="_search_mhwin_id">
+                    <option value="Select MHWIN ID" disabled>Select MHWIN ID</option>
+                    <?php
+                    // If a value is saved, display it as the selected option.
+                    if (! empty($mhwin_id))
+                    {
+                        echo '<option value="' . esc_attr($mhwin_id) . '" selected>' . esc_html($mhwin_id) . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
     </div>
 

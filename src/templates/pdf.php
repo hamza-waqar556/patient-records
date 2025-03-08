@@ -23,8 +23,7 @@
     <p>
         <?php
         echo "<pre>";
-        print_r(($data['post_data'][0]['meta'][0]['staff_type']));
-        print_r(($data['post_data']));
+        print_r(json_decode($data['post_data']));
         echo "</pre>";
         ?>
     </p>

@@ -18,21 +18,15 @@ class FetchRecord extends BaseController
     {
         // Class Variables
         $this->query_class = new CptQueryHandler();
-
-        // Calls
-
-    }
-
-    public function setArgs()
-    {
-    }
-
-    public function fetchPostData()
-    {
         $results = $this->query_class
             ->setPostType('record')
-            // ->postId(65)
-            ->whereMeta('__mhwin_id', '')
+            ->whereMeta('__member', 'rohan', 'LIKE')
             ->getResults();
+
+        echo "<pre>";
+        print_r($results);
+        echo "</pre>";
+
+        \wp_die();
     }
 }
