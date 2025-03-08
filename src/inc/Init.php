@@ -20,6 +20,8 @@ final class Init
             Controllers\CreateMetaBoxes::class,
             // Controllers\FetchRecord::class,
             \Inc\Controllers\PdfController::class,
+            \Inc\Controllers\FetchMhwinId::class,
+            \Inc\Controllers\AutofillHandler::class,
         ];
     }
 
