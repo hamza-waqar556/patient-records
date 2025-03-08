@@ -11,17 +11,28 @@ use \Inc\Api\CptQueryHandler;
 
 class FetchRecord extends BaseController
 {
+
+    public $query_class;
+
     public function register()
     {
-        $results = (new CptQueryHandler())
+        // Class Variables
+        $this->query_class = new CptQueryHandler();
+
+        // Calls
+
+    }
+
+    public function setArgs()
+    {
+    }
+
+    public function fetchPostData()
+    {
+        $results = $this->query_class
             ->setPostType('record')
             // ->postId(65)
             ->whereMeta('__mhwin_id', '')
             ->getResults();
-
-        echo "<pre>";
-        print_r($results);
-        echo "</pre>";
-        wp_die();
     }
 }

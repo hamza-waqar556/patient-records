@@ -11,7 +11,7 @@
 use \Inc\Components\CheckboxSelect;
 use \Inc\Base\BaseController;
 
-$post_id = get_the_ID();
+
 
 
 // Retrieve repeater data stored under the meta key __progress_reports.
@@ -80,15 +80,6 @@ $jsonData          = $checkboxComponent->json;
 // Output nonce for security.
 wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_nonce');
 ?>
-
-<section>
-    <?php
-    // Debug output – remove this in production.
-    echo "<pre>";
-    print_r($post_id);
-    echo "</pre>";
-    ?>
-</section>
 
 <div id="progress-report-repeater" style="position: relative; padding-bottom: 60px;">
     <?php foreach ($progress_reports as $index => $group):
@@ -203,13 +194,13 @@ wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_no
             </div>
             <div class="button-wrapper w-20">
                 <button type="button" class="remove-group">Remove Group</button>
-            </div>    
+            </div>
             <hr>
         </div>
     <?php endforeach; ?>
     <div class="button-wrapper w-full" style="position: absolute; bottom: 0;">
         <button type="button" class="w-full" id="add-group">Add New Group</button>
-    </div>    
+    </div>
 </div>
 
 <!-- Pass JSON options to JavaScript for dynamic behavior -->
