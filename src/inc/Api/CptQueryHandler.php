@@ -7,10 +7,18 @@ class CptQueryHandler
     private $post_type;
     private $meta_filters = [];
     private $query_args = [];
+    private $post_id; // New property to hold the post ID
 
     public function setPostType(string $post_type): self
     {
         $this->post_type = $post_type;
+        return $this;
+    }
+
+    // New method to set a specific post ID
+    public function postId(int $post_id): self
+    {
+        $this->post_id = $post_id;
         return $this;
     }
 
@@ -37,6 +45,12 @@ class CptQueryHandler
             'post_status'    => 'publish',
         ];
 
+        // If a specific post ID is provided, add it to the query
+        if ($this->post_id)
+        {
+            $this->query_args['p'] = $this->post_id;
+        }
+
         // Only include meta_query if at least one meta filter exists
         if (!empty($this->meta_filters))
         {
@@ -47,7 +61,6 @@ class CptQueryHandler
         return $this->formatResults($query->posts);
     }
 
-
     private function formatResults(array $posts): array
     {
         $formatted_posts = [];
@@ -55,10 +68,10 @@ class CptQueryHandler
         foreach ($posts as $post)
         {
             $post_data = [
-                'ID'          => $post->ID,
-                'title'       => $post->post_title,
-                'thumbnail'   => $this->getFeaturedImage($post->ID),
-                'meta'        => $this->getPostMeta($post->ID),
+                'ID'        => $post->ID,
+                'title'     => $post->post_title,
+                'thumbnail' => $this->getFeaturedImage($post->ID),
+                'meta'      => $this->getPostMeta($post->ID),
             ];
             $formatted_posts[] = $post_data;
         }
@@ -69,7 +82,7 @@ class CptQueryHandler
     private function getPostMeta(int $post_id): array
     {
         $meta_data = [];
-        $all_meta = get_post_meta($post_id);
+        $all_meta  = get_post_meta($post_id);
 
         foreach ($all_meta as $key => $values)
         {
@@ -89,18 +102,21 @@ class CptQueryHandler
     }
 }
 
-// Example Usage:
+// Example Usage
 // $results = (new CptQueryHandler())
-//     ->setPostType('flight')
+//     ->setPostType('hotel')
+//     ->postId(12)
 //     ->whereMeta('_from_airport', 'JFK')
 //     ->whereMeta('_to_airport', 'LAX')
-//     ->whereMeta('_duration', 40)
+//     ->whereMeta('_duration', 15)
 //     ->getResults();
 
-// Example Usage:
-$results = (new CptQueryHandler())
-    ->setPostType('hotel')
-    ->whereMeta('_from_airport', 'JFK')
-    ->whereMeta('_to_airport', 'LAX')
-    ->whereMeta('_duration', 15)
-    ->getResults();
+
+
+// Example Usage
+// $results = (new CptQueryHandler())
+//     ->setPostType('hotel')
+//     ->whereMeta('_from_airport', 'JFK')
+//     ->whereMeta('_to_airport', 'LAX')
+//     ->whereMeta('_duration', 15)
+//     ->getResults();

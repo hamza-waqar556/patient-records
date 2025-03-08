@@ -11,23 +11,64 @@
 use \Inc\Components\CheckboxSelect;
 use \Inc\Base\BaseController;
 
+$post_id = get_the_ID();
+
+
 // Retrieve repeater data stored under the meta key __progress_reports.
 $progress_reports = get_post_meta($post->ID, '__progress_reports', true);
 if (!is_array($progress_reports) || empty($progress_reports))
 {
     // If no data exists, create one empty group.
-    $progress_reports = [[
-        'member'          => '',
-        'mhwin_id'        => '',
-        'date'            => '',
-        'staff_initials'  => '',
-        'checkbox_select' => '',
-        'checkboxes'      => [],  // expecting a flat array
-        'task_id'         => '',
-        'add_note'        => '',
-        'staff_type'      => '',
-        'progress_code'   => '',
-    ]];
+    $progress_reports = [
+        [
+            'member'          => '',
+            'mhwin_id'        => '',
+            'date'            => '',
+            'staff_initials'  => '',
+            'checkbox_select' => '',
+            'checkboxes'      => [],  // expecting a flat array
+            'task_id'         => '',
+            'add_note'        => '',
+            'staff_type'      => '',
+            'progress_code'   => '',
+        ],
+        [
+            'member'          => '',
+            'mhwin_id'        => '',
+            'date'            => '',
+            'staff_initials'  => '',
+            'checkbox_select' => '',
+            'checkboxes'      => [],  // expecting a flat array
+            'task_id'         => '',
+            'add_note'        => '',
+            'staff_type'      => '',
+            'progress_code'   => '',
+        ],
+        [
+            'member'          => '',
+            'mhwin_id'        => '',
+            'date'            => '',
+            'staff_initials'  => '',
+            'checkbox_select' => '',
+            'checkboxes'      => [],  // expecting a flat array
+            'task_id'         => '',
+            'add_note'        => '',
+            'staff_type'      => '',
+            'progress_code'   => '',
+        ],
+        [
+            'member'          => '',
+            'mhwin_id'        => '',
+            'date'            => '',
+            'staff_initials'  => '',
+            'checkbox_select' => '',
+            'checkboxes'      => [],  // expecting a flat array
+            'task_id'         => '',
+            'add_note'        => '',
+            'staff_type'      => '',
+            'progress_code'   => '',
+        ],
+    ];
 }
 
 // Initialize the CheckboxSelect component (loads JSON from file).
@@ -40,14 +81,14 @@ $jsonData          = $checkboxComponent->json;
 wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_nonce');
 ?>
 
-<!-- <section> -->
-<?php
-// Debug output – remove this in production.
-// echo "<pre>";
-// print_r($progress_reports);
-// echo "</pre>";
-?>
-<!-- </section> -->
+<section>
+    <?php
+    // Debug output – remove this in production.
+    echo "<pre>";
+    print_r($post_id);
+    echo "</pre>";
+    ?>
+</section>
 
 <div id="progress-report-repeater">
     <?php foreach ($progress_reports as $index => $group):

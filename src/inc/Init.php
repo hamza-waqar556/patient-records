@@ -18,6 +18,7 @@ final class Init
             Base\Enqueue::class,
             Controllers\CustomPostType::class,
             Controllers\CreateMetaBoxes::class,
+            // Controllers\FetchRecord::class,
         ];
     }
 
