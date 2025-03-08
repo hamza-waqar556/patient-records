@@ -12,7 +12,7 @@ $query_class = new CptQueryHandler();
 
 $results = $query_class
     ->setPostType('record')
-    ->postId(65)
+    ->postId($post_id)
     ->getResults();
 
 $patient_records = get_post_meta($post->ID, '__progress_reports', false);
