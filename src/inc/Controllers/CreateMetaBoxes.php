@@ -34,6 +34,17 @@ class CreateMetaBoxes extends BaseController
             [
                 'cpt'           => 'record',
                 'fields'        => [
+                    '_search_member',
+                    '_search_mhwin_id',
+                ],
+                'nonce_name'    => 'search_record_nonce',
+                'nonce_action'  => 'search_record_nonce_action',
+                'template_path' => 'search-patient.php',
+                'title'         => 'Search to autofill patient data',
+            ],
+            [
+                'cpt'           => 'record',
+                'fields'        => [
                     '_member',
                     '_mhwin_id',
                     '_date',
