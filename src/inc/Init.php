@@ -21,6 +21,7 @@ final class Init
             // Controllers\FetchRecord::class,
             \Inc\Controllers\PdfController::class,
             \Inc\Controllers\FetchMhwinId::class,
+            \Inc\Controllers\AutofillHandler::class,
         ];
     }
 

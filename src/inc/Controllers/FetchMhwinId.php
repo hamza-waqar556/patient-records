@@ -23,33 +23,33 @@ class FetchMhwinId
 
         // Get the member input and sanitize it.
         $member_input = isset($_POST['member']) ? sanitize_text_field($_POST['member']) : '';
-        $mhwin_ids = [];
+        $mhwin_options = [];
 
         if (! empty($member_input))
         {
             // Use your CptQueryHandler to query posts of type "record"
             // where the meta key '__member' matches the input.
-            $queryHandler = new \Inc\Api\CptQueryHandler();
+            $queryHandler = new CptQueryHandler();
             $results = $queryHandler
                 ->setPostType('record')
                 ->whereMeta('__member', $member_input, 'LIKE')
                 ->getResults();
 
-            // Loop through the results to collect only the MHWIN IDs.
+            // Loop through the results to collect the MHWIN IDs along with their post IDs.
             foreach ($results as $result)
             {
-                // Adjust the key as needed. Here we check for __mhwin_id.
-                if (isset($result['meta']['__mhwin_id']) && !empty($result['meta']['__mhwin_id']))
+                if (isset($result['meta']['__mhwin_id']) && ! empty($result['meta']['__mhwin_id']))
                 {
-                    if (! in_array($result['meta']['__mhwin_id'], $mhwin_ids))
-                    {
-                        $mhwin_ids[] = $result['meta']['__mhwin_id'];
-                    }
+                    // Build an option with post_id as the value and mhwin_id as the text.
+                    $mhwin_options[] = [
+                        'post_id'  => $result['ID'],
+                        'mhwin_id' => $result['meta']['__mhwin_id']
+                    ];
                 }
             }
         }
 
-        // Return the MHWIN IDs as a JSON response.
-        wp_send_json_success($mhwin_ids);
+        // Return the MHWIN options as a JSON response.
+        wp_send_json_success($mhwin_options);
     }
 }
