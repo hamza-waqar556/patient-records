@@ -11,33 +11,73 @@ body {
 .w-full {
   width: 100%;
 }
+@media (max-width: 767px) {
+  .w-full {
+    width: 100%;
+  }
+}
 
 .w-half {
   width: 50%;
+}
+@media (max-width: 767px) {
+  .w-half {
+    width: 100%;
+  }
 }
 
 .w-33 {
   width: 33%;
 }
+@media (max-width: 767px) {
+  .w-33 {
+    width: 100%;
+  }
+}
 
 .w-70 {
   width: 70%;
+}
+@media (max-width: 767px) {
+  .w-70 {
+    width: 100%;
+  }
 }
 
 .w-30 {
   width: 30%;
 }
+@media (max-width: 767px) {
+  .w-30 {
+    width: 100%;
+  }
+}
 
 .w-25 {
   width: 25%;
+}
+@media (max-width: 767px) {
+  .w-25 {
+    width: 100%;
+  }
 }
 
 .w-16 {
   width: 16%;
 }
+@media (max-width: 767px) {
+  .w-16 {
+    width: 100%;
+  }
+}
 
 .w-20 {
   width: 20%;
+}
+@media (max-width: 767px) {
+  .w-20 {
+    width: 100%;
+  }
 }
 
 .heading {
@@ -130,6 +170,11 @@ body {
 .input-rows .select-wrapper select:focus {
   outline-color: #0d6efd;
   border-color: #0d6efd;
+}
+@media (max-width: 767px) {
+  .input-rows {
+    flex-direction: column;
+  }
 }
 
 .button-wrapper {
