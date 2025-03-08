@@ -49,7 +49,7 @@ wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_no
 ?>
 <!-- </section> -->
 
-<div id="progress-report-repeater">
+<div id="progress-report-repeater" style="position: relative; padding-bottom: 60px;">
     <?php foreach ($progress_reports as $index => $group):
         // Prepare and sanitize values for this group.
         $member          = isset($group['member']) ? sanitize_text_field($group['member']) : '';
@@ -160,11 +160,15 @@ wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_no
                     </select>
                 </div>
             </div>
-            <button type="button" class="remove-group">Remove Group</button>
+            <div class="button-wrapper w-20">
+                <button type="button" class="remove-group">Remove Group</button>
+            </div>    
             <hr>
         </div>
     <?php endforeach; ?>
-    <button type="button" id="add-group">Add New Group</button>
+    <div class="button-wrapper w-full" style="position: absolute; bottom: 0;">
+        <button type="button" class="w-full" id="add-group">Add New Group</button>
+    </div>    
 </div>
 
 <!-- Pass JSON options to JavaScript for dynamic behavior -->

@@ -53,34 +53,34 @@ $titles = [
             <h3><?php echo esc_html('C' . $i . ' ' . $title); ?></h3>
 
             <div class="input-rows">
-                <div class="input-wrapper w-25">
+                <div class="input-wrapper w-16">
                     <label for="c<?php echo $i; ?>-am">AM</label>
                     <input type="text" name="_c[<?php echo $i; ?>][am]" id="c<?php echo $i; ?>-am" placeholder="AM" value="<?php echo isset($saved_values[$i]['am']) ? esc_attr($saved_values[$i]['am']) : ''; ?>">
                 </div>
-                <div class="input-wrapper w-25">
+                <div class="input-wrapper w-16">
                     <label for="c<?php echo $i; ?>-am-min">mins</label>
                     <input type="text" name="_c[<?php echo $i; ?>][am-min]" id="c<?php echo $i; ?>-am-min" placeholder="Mins" value="<?php echo isset($saved_values[$i]['am-min']) ? esc_attr($saved_values[$i]['am-min']) : ''; ?>">
                 </div>
-                <div class="input-wrapper w-25">
+                <div class="input-wrapper w-16">
                     <label for="c<?php echo $i; ?>-pm">PM</label>
                     <input type="text" name="_c[<?php echo $i; ?>][pm]" id="c<?php echo $i; ?>-pm" placeholder="PM" value="<?php echo isset($saved_values[$i]['pm']) ? esc_attr($saved_values[$i]['pm']) : ''; ?>">
                 </div>
-                <div class="input-wrapper w-25">
+                <div class="input-wrapper w-16">
                     <label for="c<?php echo $i; ?>-pm-min">mins</label>
                     <input type="text" name="_c[<?php echo $i; ?>][pm-min]" id="c<?php echo $i; ?>-pm-min" placeholder="Mins" value="<?php echo isset($saved_values[$i]['pm-min']) ? esc_attr($saved_values[$i]['pm-min']) : ''; ?>">
+                </div>
+                <div class="input-wrapper w-16">
+                    <label for="c<?php echo $i; ?>-mn">MN</label>
+                    <input type="text" name="_c[<?php echo $i; ?>][mn]" id="c<?php echo $i; ?>-mn" placeholder="MN" value="<?php echo isset($saved_values[$i]['mn']) ? esc_attr($saved_values[$i]['mn']) : ''; ?>">
+                </div>
+                <div class="input-wrapper w-16">
+                    <label for="c<?php echo $i; ?>-mn-min">mins</label>
+                    <input type="text" name="_c[<?php echo $i; ?>][mn-min]" id="c<?php echo $i; ?>-mn-min" placeholder="Mins" value="<?php echo isset($saved_values[$i]['mn-min']) ? esc_attr($saved_values[$i]['mn-min']) : ''; ?>">
                 </div>
             </div>
 
             <div class="input-rows">
-                <div class="input-wrapper w-25">
-                    <label for="c<?php echo $i; ?>-mn">MN</label>
-                    <input type="text" name="_c[<?php echo $i; ?>][mn]" id="c<?php echo $i; ?>-mn" placeholder="MN" value="<?php echo isset($saved_values[$i]['mn']) ? esc_attr($saved_values[$i]['mn']) : ''; ?>">
-                </div>
-                <div class="input-wrapper w-25">
-                    <label for="c<?php echo $i; ?>-mn-min">mins</label>
-                    <input type="text" name="_c[<?php echo $i; ?>][mn-min]" id="c<?php echo $i; ?>-mn-min" placeholder="Mins" value="<?php echo isset($saved_values[$i]['mn-min']) ? esc_attr($saved_values[$i]['mn-min']) : ''; ?>">
-                </div>
-                <div class="input-wrapper w-half">
+                <div class="input-wrapper w-full">
                     <label for="c<?php echo $i; ?>-description">Description</label>
                     <input type="text" name="_c[<?php echo $i; ?>][description]" id="c<?php echo $i; ?>-description" placeholder="Description" value="<?php echo isset($saved_values[$i]['description']) ? esc_attr($saved_values[$i]['description']) : ''; ?>">
                 </div>
