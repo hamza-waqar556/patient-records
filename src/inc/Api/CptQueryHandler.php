@@ -7,7 +7,7 @@ class CptQueryHandler
     private $post_type;
     private $meta_filters = [];
     private $query_args = [];
-    private $post_id; // New property to hold the post ID
+    private $post_id;
 
     public function setPostType(string $post_type): self
     {
@@ -15,7 +15,6 @@ class CptQueryHandler
         return $this;
     }
 
-    // New method to set a specific post ID
     public function postId(int $post_id): self
     {
         $this->post_id = $post_id;
@@ -45,13 +44,11 @@ class CptQueryHandler
             'post_status'    => 'publish',
         ];
 
-        // If a specific post ID is provided, add it to the query
         if ($this->post_id)
         {
             $this->query_args['p'] = $this->post_id;
         }
 
-        // Only include meta_query if at least one meta filter exists
         if (!empty($this->meta_filters))
         {
             $this->query_args['meta_query'] = $this->meta_filters;
@@ -86,10 +83,47 @@ class CptQueryHandler
 
         foreach ($all_meta as $key => $values)
         {
-            $meta_data[$key] = count($values) === 1 ? maybe_unserialize($values[0]) : array_map('maybe_unserialize', $values);
+            if (count($values) === 1)
+            {
+                $meta_data[$key] = $this->recursiveMaybeUnserialize($values[0]);
+            }
+            else
+            {
+                $meta_data[$key] = array_map([$this, 'recursiveMaybeUnserialize'], $values);
+            }
         }
 
         return $meta_data;
+    }
+
+    /**
+     * Recursively unserialize meta data.
+     * First, try WordPress's maybe_unserialize.
+     * If the result is still a string, attempt to decode JSON.
+     */
+    private function recursiveMaybeUnserialize($data)
+    {
+        $data = maybe_unserialize($data);
+
+        // Attempt JSON decode if the data is still a string
+        if (is_string($data))
+        {
+            $json = json_decode($data, true);
+            if (json_last_error() === JSON_ERROR_NONE)
+            {
+                $data = $json;
+            }
+        }
+
+        if (is_array($data))
+        {
+            foreach ($data as $key => $value)
+            {
+                $data[$key] = $this->recursiveMaybeUnserialize($value);
+            }
+        }
+
+        return $data;
     }
 
     private function getFeaturedImage(int $post_id)
@@ -102,21 +136,23 @@ class CptQueryHandler
     }
 }
 
-// Example Usage
-// $results = (new CptQueryHandler())
-//     ->setPostType('hotel')
-//     ->postId(12)
-//     ->whereMeta('_from_airport', 'JFK')
-//     ->whereMeta('_to_airport', 'LAX')
-//     ->whereMeta('_duration', 15)
-//     ->getResults();
-
 
 
 // Example Usage
 // $results = (new CptQueryHandler())
-//     ->setPostType('hotel')
-//     ->whereMeta('_from_airport', 'JFK')
-//     ->whereMeta('_to_airport', 'LAX')
-//     ->whereMeta('_duration', 15)
-//     ->getResults();
+// ->setPostType('hotel')
+// ->postId(12)
+// ->whereMeta('_from_airport', 'JFK')
+// ->whereMeta('_to_airport', 'LAX')
+// ->whereMeta('_duration', 15)
+// ->getResults();
+
+
+
+// Example Usage
+// $results = (new CptQueryHandler())
+// ->setPostType('hotel')
+// ->whereMeta('_from_airport', 'JFK')
+// ->whereMeta('_to_airport', 'LAX')
+// ->whereMeta('_duration', 15)
+// ->getResults();

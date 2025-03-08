@@ -81,6 +81,14 @@ $jsonData          = $checkboxComponent->json;
 wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_nonce');
 ?>
 
+<section>
+    <?php
+    echo "<pre>";
+    print_r($progress_reports);
+    echo "</pre>";
+    ?>
+</section>
+
 <div id="progress-report-repeater" style="position: relative; padding-bottom: 60px;">
     <?php foreach ($progress_reports as $index => $group):
         // Prepare and sanitize values for this group.

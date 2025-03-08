@@ -37,10 +37,17 @@ class Enqueue extends BaseController
         ];
 
 
+        // wp_localize_script('admin', 'AIOB', [
+        //     'routes' => $rest_routes,
+        //     'plugin'   => $plugin,
+        //     'nonce'    => wp_create_nonce('wp_rest'),
+        // ]);
+
         wp_localize_script('admin', 'AIOB', [
-            'routes' => $rest_routes,
-            'plugin'   => $plugin,
-            'nonce'    => wp_create_nonce('wp_rest'),
+            'routes'  => $rest_routes,
+            'plugin'  => $plugin,
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('generate_pdf_nonce'),
         ]);
     }
 }

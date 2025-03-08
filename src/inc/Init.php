@@ -19,6 +19,7 @@ final class Init
             Controllers\CustomPostType::class,
             Controllers\CreateMetaBoxes::class,
             // Controllers\FetchRecord::class,
+            \Inc\Controllers\PdfController::class,
         ];
     }
 

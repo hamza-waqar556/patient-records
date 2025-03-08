@@ -15,6 +15,7 @@ defined('ABSPATH') or die;
 // Add Composer autoload
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
+
 /**
  * The code that runs during plugin activation
  */

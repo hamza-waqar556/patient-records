@@ -15,29 +15,25 @@ $results = $query_class
     ->postId(65)
     ->getResults();
 
+$patient_records = get_post_meta($post->ID, '__progress_reports', false);
+
+$results[0]['meta']['__progress_reports'] = $patient_records;
 
 
 wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
 ?>
-
-<script>
-    const postData = <?php echo json_encode($results); ?>;
-    // console.log(postData);
-</script>
-
 <section>
     <?php
-    echo "<pre>";
+    // echo "<pre>";
     // print_r($results);
-    echo "</pre>";
+    // echo "</pre>";
     ?>
 </section>
 
 <div class="form1-wrapper">
 
-    <div id="thisRecordData">
-        <div class="post_id"><?php echo $post_id ?></div>
-        <div class="post_data"></div>
+    <div class="input-rows">
+        <input type="hidden" name="_post_data" id="_post_data" value="<?php echo esc_attr(json_encode($results)) ?>">
     </div>
 
     <div class="input-rows">
@@ -54,4 +50,7 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
     <div class="button-wrapper w-full">
         <button type="submit">Auto Fill</button>
     </div>
+
+    <button id="generate-pdf-button">Generate & Email PDF</button>
+
 </div>

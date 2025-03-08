@@ -220,7 +220,8 @@
 
 
         }
-        .fs-small{
+
+        .fs-small {
             font-size: 12px;
         }
     </style>
@@ -1081,33 +1082,6 @@
             </div>
         </div>
 
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-        <button onclick="generatePDF()" style="position: fixed; right: 20px; top: 20px; padding: 10px;">Download
-            PDF</button>
-
-        <script>
-            function generatePDF() {
-                const element = document.querySelector('.pdf-main-container');
-                const opt = {
-                    margin: 0,
-                    filename: 'progress-note.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: {
-                        scale: 2,
-                        useCORS: true,
-                        letterRendering: true
-                    },
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'letter',
-                        orientation: 'portrait'
-                    }
-                };
-
-                html2pdf().set(opt).from(element).save();
-            }
-        </script>
 </body>
 
 </html>
