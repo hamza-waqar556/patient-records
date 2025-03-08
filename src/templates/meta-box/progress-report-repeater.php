@@ -83,9 +83,9 @@ wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_no
 
 <section>
     <?php
-    echo "<pre>";
-    print_r($progress_reports);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($progress_reports);
+    // echo "</pre>";
     ?>
 </section>
 
