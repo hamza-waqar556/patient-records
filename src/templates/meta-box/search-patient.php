@@ -65,7 +65,8 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
         <button type="submit" id="auto-fill-button">Auto Fill</button>
     </div>
 
-
-    <button id="generate-pdf-button">Generate & Email PDF</button>
+    <div class="button-wrapper w-25">
+        <button id="generate-pdf-button">Send PDF</button>
+    </div>
 
 </div>
