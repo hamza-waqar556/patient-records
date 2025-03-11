@@ -18,8 +18,7 @@ class CustomPostType extends BaseController
         $this->storeCustomPostTypes();
 
         // Register Custom Post Types
-        if (! empty($this->custom_post_types))
-        {
+        if (! empty($this->custom_post_types)) {
             add_action('init', [$this, 'registerCustomPostTypes']);
         }
     }
@@ -34,16 +33,14 @@ class CustomPostType extends BaseController
             'patient_records_cpt' => $this->createCptArgs('Patient Record', 'Patient Records', 'record', 'dashicons-list-view', []),
         ];
 
-        foreach ($cpt_options as $option_key => $post_type)
-        {
+        foreach ($cpt_options as $option_key => $post_type) {
             $this->custom_post_types[$option_key] = $cpts[$option_key];
         }
     }
 
     public function registerCustomPostTypes()
     {
-        foreach ($this->custom_post_types as $post_type)
-        {
+        foreach ($this->custom_post_types as $post_type) {
             register_post_type(
                 $post_type['post_type'],
                 [
@@ -169,11 +166,11 @@ class CustomPostType extends BaseController
             'has_archive'           => true, // Enables archive pages
             'exclude_from_search'   => false,
             'publicly_queryable'    => true,
-            'capability_type'       => 'post',
-
+            'capability_type' => 'post', 
             // Admin menu icon
             'menu_icon'             => $icon,
         ];
+
 
         // Merge default arguments with overrides (if provided)
         return array_merge($args, $overrides);

@@ -19,4 +19,5 @@ class Activate
     {
         flush_rewrite_rules();
     }
+    
 }

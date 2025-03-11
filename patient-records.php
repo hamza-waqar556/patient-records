@@ -37,7 +37,6 @@ function deactivatePrecPlugin()
 register_deactivation_hook(__FILE__, 'deactivatePrecPlugin');
 
 // Initialize all the core classes of the plugin
-if (class_exists('Inc\\Init'))
-{
+if (class_exists('Inc\\Init')) {
     Inc\Init::registerServices();
 }
