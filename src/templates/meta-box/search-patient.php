@@ -68,5 +68,8 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
     <div class="button-wrapper w-25">
         <button id="generate-pdf-button">Send PDF</button>
     </div>
+    <div class="button-wrapper w-25">
+        <button id="download-pdf" class="btn">Download PDF</button>
+    </div>
 
 </div>

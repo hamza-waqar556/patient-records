@@ -17,8 +17,7 @@ class GeneratePdf extends BaseController
     {
         // Compute the template file path.
         $template_path = $this->plugin_path . 'src/templates/pdf.php';
-        if (!$template_path || !file_exists($template_path))
-        {
+        if (!$template_path || !file_exists($template_path)) {
             error_log('PDF template file not found: ' . plugin_dir_path(__FILE__) . '/../../templates/pdf.php');
             return '';
         }
@@ -38,16 +37,28 @@ class GeneratePdf extends BaseController
 
         // Get PDF output.
         $pdf_output = $dompdf->output();
-        if (empty($pdf_output))
-        {
+        if (empty($pdf_output)) {
             error_log('Dompdf generated empty output.');
         }
 
         // Save the PDF in the uploads directory.
         $upload_dir = wp_upload_dir();
-        $pdf_path   = trailingslashit($upload_dir['path']) . 'progress-note-' . time() . '.pdf';
+        // $pdf_path   = trailingslashit($upload_dir['path']) . 'progress-note-' . time() . '.pdf';
+
+        // addtion things
+        $timestamp = date('Y-m-d_H-i-s'); // Example: 2025-03-11_14-30-00
+        $member_id = isset($data['member']) ? sanitize_text_field($data['member']) : 'unknown';
+        $mhwin_id = isset($data['mhwin_id']) ? sanitize_text_field($data['mhwin_id']) : 'NA';
+
+        // Create a dynamic filename
+        $pdf_filename = "progress-note_{$member_id}_{$mhwin_id}_{$timestamp}.pdf";
+        $pdf_path = trailingslashit($upload_dir['path']) . $pdf_filename;
+
+
         file_put_contents($pdf_path, $pdf_output);
 
         return $pdf_path;
     }
+
+
 }

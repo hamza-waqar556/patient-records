@@ -3,10 +3,6 @@
 $postData = json_decode($data['post_data'], true);
 
 
-
-
-
-
 // Get the first item (top-level object)
 $item = $postData[0];
 
@@ -399,6 +395,10 @@ $personalObjectives = array(
                 </tr>
             </table>
         </div>
+
+        <!-- page breaker -->
+        <div style="page-break-after: always;"></div>
+
         <!-- Page 2: Task Codes and Staff Section -->
         <div class="page">
             <table class="layout">
