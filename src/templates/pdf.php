@@ -2,8 +2,18 @@
 // Decode your JSON post data as an associative array
 $postData = json_decode($data['post_data'], true);
 
+
+
+
+
+
 // Get the first item (top-level object)
 $item = $postData[0];
+
+// top checkboxes
+$idd = isset($item['meta']['__idd']) ? $item['meta']['__idd'] : null;
+$ami = isset($item['meta']['__ami']) ? $item['meta']['__ami'] : null;
+
 
 // Save top-level fields
 $ID        = isset($item['ID']) ? $item['ID'] : '';
@@ -112,13 +122,12 @@ $personalObjectives = array(
         .report-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
         .report-table th,
         .report-table td {
             border: 1px solid black;
-            padding: 10px;
+            padding: 6px;
             vertical-align: top;
         }
 
@@ -128,13 +137,8 @@ $personalObjectives = array(
             text-align: left;
         }
 
-       
 
-        .fields {
-            display: block;
-            font-size: 12px;
-            margin-top: 4px;
-        }
+
 
 
         .pdf-main-container {
@@ -144,27 +148,28 @@ $personalObjectives = array(
         }
 
         .page {
-            margin-bottom: 10px;
+            /* margin-bottom: 10px; */
             width: 100%;
         }
 
         .heading {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
         .heading h1,
         .heading h2 {
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
+            font-size: 16px;
         }
 
         .heading p {
-            font-size: 14px;
+            font-size: 12px;
             margin: 0;
         }
 
         .fields {
-            padding: 6px;
+            padding: 4px;
             border-bottom: 1px solid #000;
             font-size: 12px;
             display: inline-block;
@@ -175,7 +180,7 @@ $personalObjectives = array(
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px auto;
+            margin: 8px auto;
             table-layout: fixed;
         }
 
@@ -237,9 +242,22 @@ $personalObjectives = array(
     <!-- Page 1: Header and Objectives Tables -->
     <div class="pdf-main-container">
         <div class="page">
-            <div class="heading">
-                <h2>Detroit Wayne Integrated Health Network Daily Progress Note</h2>
-                <p>Specialized Licensed Settings for CPT Codes H2016 &amp; T1020</p>
+            <div class="">
+                <div class="heading" style="width: 90%; display: inline-block; vertical-align: middle;">
+                    <h2>Detroit Wayne Integrated Health Network Daily Progress Note</h2>
+                    <p>Specialized Licensed Settings for CPT Codes H2016 &amp; T1020</p>
+                </div>
+                <div style="width: 8%; display: inline-block; vertical-align: middle; text-align: end;">
+                    <div>
+                        <input type="checkbox" name="idd_result" id="idd_result" value="1" <?php checked($idd, '1'); ?>>
+                        <label for="idd_result" style="font-size: 12px; display: inline-block; vertical-align: middle;">IDD</label>
+                    </div>
+                    <div style="width: 100%;">
+                        <input type="checkbox" name="ami_result" id="ami_result" value="1" <?php checked($ami, '1'); ?>>
+                        <label for="ami_result" style="font-size: 12px; display: inline-block; vertical-align: middle;">AMI</label>
+                    </div>
+                </div>
+
             </div>
             <!-- Header Information -->
             <table class="layout">
@@ -248,24 +266,35 @@ $personalObjectives = array(
                     <td style="width: 40%;"><strong>MHWIN ID#:</strong> <span class="fields"><?php echo $mhwin_id_meta; ?></span></td>
                     <td style="width: 20%;"><strong>Date:</strong> <span class="fields"><?php echo $date_meta; ?></span></td>
                 </tr>
+            </table>
+            <table class="layout">
                 <tr>
-                    <td style="width: 60%;"><strong>CRSP SC / CM:</strong>
+                    <td style="width: 60%"><strong>CRSP SC / CM:</strong>
                         <span class="fields"><?php echo $crsp; ?></span>
                     </td>
-                    <td style="width: 40%;"><strong>Facility:</strong> <span class="fields">
+                    <td style="width: 40%">
+                        <strong>Facility:</strong>
+                        <span class="fields">
                             <?php echo $facility; ?>
-                        </span></td>
+                        </span>
+                    </td>
                 </tr>
+            </table>
+            <table class="layout">
                 <tr>
-                    <td style="width: 60%;"><strong>Identified IPOS Goals:</strong>
+                    <td style="width: 80%;">
+                        <strong>Identified IPOS Goals:</strong>
                         <div class="fields">
                             <?php echo $goals; ?><br>
                         </div>
                     </td>
-                    <td style="width: 20%;"><strong>CLS Hours:</strong> <span class="fields">
+                    <td style="width: 10%; vertical-align: bottom;">
+                        <strong>CLS Hours:</strong>
+                        <span class="fields">
                             <?php echo $cls_hours; ?>
-                        </span></td>
-                    <td style="width: 20%;"><strong>PC Hours:</strong> <span class="fields">
+                        </span>
+                    </td>
+                    <td style="width: 10%; vertical-align: bottom;"><strong>PC Hours:</strong> <span class="fields">
                             <?php echo $pc_hours; ?>
                         </span></td>
                 </tr>
@@ -285,7 +314,13 @@ $personalObjectives = array(
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($cObj as $key => $obj): ?>
+                    <?php foreach ($cObj as $key => $obj):
+                        $amMin = isset($obj['am-min']) ? (int)$obj['am-min'] : 0;
+                        $pmMin = isset($obj['pm-min']) ? (int)$obj['pm-min'] : 0;
+                        $mnMin = isset($obj['mn-min']) ? (int)$obj['mn-min'] : 0;
+                        $rowTotal = $amMin + $pmMin + $mnMin;
+                        $grandTotalC += $rowTotal;
+                    ?>
                         <tr>
                             <td class="text-center"><?php echo isset($obj['am']) ? $obj['am'] : ''; ?></td>
                             <td class="text-center"><?php echo isset($obj['am-min']) ? $obj['am-min'] : ''; ?></td>
@@ -301,7 +336,9 @@ $personalObjectives = array(
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-right">Total CLS Mins:</td>
-                        <td colspan="3" class="text-center"></td>
+                        <td colspan="3" class="text-center">
+                            <?php echo $grandTotalC; ?>
+                        </td>
                         <td colspan="2"></td>
                     </tr>
                 </tfoot>
@@ -321,7 +358,13 @@ $personalObjectives = array(
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($pObj as $key => $obj): ?>
+                    <?php foreach ($pObj as $key => $obj):
+                        $amMin = isset($obj['am-min']) ? (int)$obj['am-min'] : 0;
+                        $pmMin = isset($obj['pm-min']) ? (int)$obj['pm-min'] : 0;
+                        $mnMin = isset($obj['mn-min']) ? (int)$obj['mn-min'] : 0;
+                        $rowTotal = $amMin + $pmMin + $mnMin;
+                        $grandTotalP += $rowTotal;
+                    ?>
                         <tr>
                             <td class="text-center"><?php echo isset($obj['am']) ? $obj['am'] : ''; ?></td>
                             <td class="text-center"><?php echo isset($obj['am-min']) ? $obj['am-min'] : ''; ?></td>
@@ -337,18 +380,20 @@ $personalObjectives = array(
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-right">Total PC Mins:</td>
-                        <td colspan="3" class="text-center"></td>
+                        <td colspan="3" class="text-center">
+                            <?php echo $grandTotalP; ?>
+                        </td>
                         <td colspan="2"></td>
                     </tr>
                 </tfoot>
             </table>
             <!-- Signature Section -->
-            <table class="layout" style="border: 1px solid #000; margin-top: 20px;">
+            <table class="layout" style="border: 1px solid #000;">
                 <tr>
-                    <td style="width:70%; border-right: 1px solid #000; padding: 10px;">
+                    <td style="width:70%; border-right: 1px solid #000; padding: 6px;">
                         <strong>Provider Supervisory Signature:</strong> <span class="fields"></span>
                     </td>
-                    <td style="width:30%; padding: 10px;">
+                    <td style="width:30%; padding: 6px;">
                         <strong>Date:</strong> <span class="fields"></span>
                     </td>
                 </tr>
@@ -368,107 +413,115 @@ $personalObjectives = array(
                 <p>Specialized Licensed Settings for CPT Codes H2016 &amp; T1020</p>
             </div>
             <!-- TASK ID CODES -->
-            <div style="text-align: center; margin-bottom: 10px;"><strong>TASK ID CODES</strong></div>
+            <div style="text-align: center; margin-bottom: 10px; font-size: 14px;"><strong>TASK ID CODES</strong></div>
             <table>
                 <tr>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>H</strong> = Hospitalization</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>M</strong> = Monitoring</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>R</strong> = Refusal</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>ED</strong> = Education/Day Program</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>H</strong> = Hospitalization</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>M</strong> = Monitoring</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>R</strong> = Refusal</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>ED</strong> = Education/Day Program</td>
                 </tr>
             </table>
             <table>
                 <tr>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>TC</strong> = Total Care</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>PA</strong> = Physical Assist</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>VP</strong> = Verbal Prompts</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>LOA</strong> = Leave of Absence</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>TC</strong> = Total Care</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>PA</strong> = Physical Assist</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>VP</strong> = Verbal Prompts</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>LOA</strong> = Leave of Absence</td>
                 </tr>
             </table>
             <table>
                 <tr>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>HOH</strong> = Hand Over Hand</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>I</strong> = Independent</td>
-                    <td style="width:50%; border: 1px solid #000; padding: 10px; text-align: center;" colspan="2"></td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;" colspan="1"></td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>HOH</strong> = Hand Over Hand</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>I</strong> = Independent</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;" colspan="1"></td>
                 </tr>
             </table>
             <!-- PROGRESS CODES -->
-            <div style="text-align: center; margin: 20px 0 10px;"><strong>PROGRESS CODES</strong></div>
+            <div style="text-align: center; margin: 10px 0; font-size: 14px;"><strong>PROGRESS CODES</strong></div>
             <table>
                 <tr>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>IP</strong> = Increased Progress</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>DP</strong> = Decreased Progress</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"><strong>SP</strong> = Same Progress</td>
-                    <td style="width:25%; border: 1px solid #000; padding: 10px; text-align: center;"></td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>IP</strong> = Increased Progress</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>DP</strong> = Decreased Progress</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"><strong>SP</strong> = Same Progress</td>
+                    <td style="width:25%; border: 1px solid #000; padding: 4px; text-align: center;"></td>
                 </tr>
             </table>
             <!-- Staff Section: List each progress report with its staff initials -->
-            <table class="report-table" style="margin-top: 20px;">
-                <?php foreach ($progressReports as $report):
-                    $cbText = '';
-                    if (is_array($report['checkboxes'])) {
-                        $cbText = isset($report['checkboxes']['text'])
-                            ? $report['checkboxes']['text']
-                            : implode(' ', $report['checkboxes']);
-                    } else {
-                        $cbText = $report['checkboxes'];
-                    }
-                ?>
-                    <thead>
+            <?php foreach ($progressReports as $report):
+                $cbText = '';
+                if (is_array($report['checkboxes'])) {
+                    $cbText = isset($report['checkboxes']['text'])
+                        ? $report['checkboxes']['text']
+                        : implode(' ', $report['checkboxes']);
+                } else {
+                    $cbText = $report['checkboxes'];
+                }
+            ?>
+                <table class="report-table" style="margin-top: 10px;">
+                    <!-- <thead>
                         <tr class="header-row">
                             <th style="width:20%; vertical-align: top;">Staff Action/Outcome</th>
                             <th style="width:10%; vertical-align: top;">CLS/PC</th>
                             <th style="width:10%; vertical-align: top;">Task ID</th>
                             <th style="width:60%; vertical-align: top;">Details</th>
                         </tr>
-                    </thead>
+                    </thead> -->
 
                     <tbody>
                         <tr class="report-row">
                             <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <!-- <strong>Staff Action/Outcome:</strong> -->
-                                <span class="fields"><?php echo isset($report['staff_initials']) ? $report['staff_initials'] : ''; ?></span>
+                                <strong>Staff Action/Outcome</strong>
+                                <span class="fields">
+                                    <?php echo isset($report['staff_initials']) ? $report['staff_initials'] : ''; ?>
+                                </span>
                             </td>
                             <td class="label-cell" style="width:10%; vertical-align: top;">
-                                <!-- <strong>CLS/PC:</strong> -->
-                                <span class="fields"><?php echo isset($report['checkbox_select']) ? $report['checkbox_select'] : ''; ?></span>
+                                <strong>CLS/PC:</strong>
+                                <span class="fields">
+                                    <?php echo isset($report['checkbox_select']) ? $report['checkbox_select'] : ''; ?>
+                                </span>
                             </td>
                             <td class="label-cell" style="width:10%; vertical-align: top;">
-                                <!-- <strong>Task ID:</strong> -->
-                                <span class="fields"><?php echo isset($report['task_id']) ? $report['task_id'] : ''; ?></span>
+                                <strong>Task ID:</strong>
+                                <span class="fields">
+                                    <?php echo isset($report['task_id']) ? $report['task_id'] : ''; ?>
+                                </span>
                             </td>
                             <td class="content-cell" style="width:60%; vertical-align: top;">
-                                <div class="fields">
-                                    <?php echo $cbText; ?>
-                                    <br>
-                                    <?php echo isset($report['add_note']) ? $report['add_note'] : ''; ?>
-                                </div>
+                                <?php echo $cbText; ?>
+                                <br>
+                                <?php echo isset($report['add_note']) ? $report['add_note'] : ''; ?>
                             </td>
                         </tr>
                         <tr class="report-row">
                             <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>Staff Signature:</strong> <span class="fields"></span>
+                                <strong>Staff Signature:</strong>
+                                <span class="fields" style="margin-top: 6px;"></span>
                             </td>
                             <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>Credentials:</strong> <span class="fields"></span>
+                                <strong>Credentials:</strong>
+                                <span class="fields" style="margin-top: 6px;"></span>
                             </td>
                             <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>PRINT NAME:</strong> <span class="fields"></span>
+                                <strong>PRINT NAME:</strong>
+                                <span class="fields" style="margin-top: 6px;"></span>
                             </td>
-                            <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <div>
+                            <td class="label-cell" style="width:20%; vertical-align: bottom;">
+                                <div style="display: inline-block; width: 49%;">
                                     <strong style="display:inline-block;">Staff Type:</strong>
                                     <span class="fields" style="display:inline-block;"><?php echo isset($report['staff_type']) ? $report['staff_type'] : ''; ?></span>
                                 </div>
-                                <div>
+                                <div style="display: inline-block; width: 49%;">
                                     <strong style="display:inline-block;">Progress Code:</strong>
                                     <span class="fields" style="display:inline-block;"><?php echo isset($report['progress_code']) ? $report['progress_code'] : ''; ?></span>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
-                <?php endforeach; ?>
-            </table>
+                </table>
+            <?php endforeach; ?>
 
 
         </div>

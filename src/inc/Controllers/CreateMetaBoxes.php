@@ -52,7 +52,9 @@ class CreateMetaBoxes extends BaseController
                     '_facility',
                     '_goals',
                     '_pc_hours',
-                    '_cls_hours'
+                    '_cls_hours',
+                    '_idd',
+                    '_ami'
                 ],
                 'nonce_name'    => 'record_patient_details_nonce',
                 'nonce_action'  => 'record_patient_details_nonce_action',

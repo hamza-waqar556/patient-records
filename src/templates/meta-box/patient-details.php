@@ -9,6 +9,9 @@ $facility  = get_post_meta($post->ID, '__facility', true);
 $goals     = get_post_meta($post->ID, '__goals', true);
 $pc_hours  = get_post_meta($post->ID, '__pc_hours', true);
 $cls_hours = get_post_meta($post->ID, '__cls_hours', true);
+$ami = get_post_meta($post->ID, '__ami', true);
+$idd = get_post_meta($post->ID, '__idd', true);
+
 
 $results = [
     'member' => esc_attr(get_post_meta($post->ID, '__member', true)),
@@ -19,6 +22,8 @@ $results = [
     'goals'      => esc_textarea(get_post_meta($post->ID, '__goals', true)),
     'pc_hours'      => esc_attr(get_post_meta($post->ID, '__pc_hours', true)),
     'cls_hours'      => esc_attr(get_post_meta($post->ID, '__cls_hours', true)),
+    'ami'      => esc_attr(get_post_meta($post->ID, '__ami', true)),
+    'idd'      => esc_attr(get_post_meta($post->ID, '__idd', true)),
 ];
 
 // Nonce for security
@@ -65,6 +70,16 @@ wp_nonce_field('record_patient_details_nonce_action', 'record_patient_details_no
         <div class="input-wrapper w-half">
             <label for="form1-cls-hours">CLS Hours</label>
             <input type="text" name="_cls_hours" value="<?php echo esc_attr($results['cls_hours']); ?>" id="form1-cls-hours" placeholder="CLS Hours">
+        </div>
+        <div class="w-16">
+            <div class="">
+                <input type="checkbox" name="_idd" id="_idd" value="1" <?php checked($results['idd'] , 1); ?>>
+                <label for="_idd" style="font-size: 1rem;">IDD</label>
+            </div>
+            <div class="">
+                <input type="checkbox" name="_ami" id="_ami" value="1" <?php checked($results['ami'] , 1); ?>>
+                <label for="_ami" style="font-size: 1rem;">AMI</label>
+            </div>
         </div>
     </div>
 </div>
