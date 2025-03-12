@@ -258,12 +258,21 @@ $personalObjectives = array(
             <!-- Header Information -->
             <table class="layout">
                 <tr>
-                    <td style="width: 40%;"><strong>Member:</strong> <span class="fields"><?php echo $member_meta; ?></span></td>
-                    <td style="width: 40%;"><strong>MHWIN ID#:</strong> <span class="fields"><?php echo $mhwin_id_meta; ?></span></td>
-                    <td style="width: 20%;"><strong>Date:</strong> <span class="fields"><?php echo $date_meta; ?></span></td>
+                    <td style="width: 20%;"><strong>Member:</strong> <span class="fields"><?php echo $member_meta; ?></span></td>
+                    <td style="width: 20%;"><strong>MHWIN ID#:</strong> <span class="fields"><?php echo $mhwin_id_meta; ?></span></td>
+                    <td style="width: 10%;"><strong>Date:</strong> <span class="fields"><?php echo $date_meta; ?></span></td>
+                    <td style="width: 30%"><strong>CRSP SC / CM:</strong>
+                        <span class="fields"><?php echo $crsp; ?></span>
+                    </td>
+                    <td style="width: 20%">
+                        <strong>Facility:</strong>
+                        <span class="fields">
+                            <?php echo $facility; ?>
+                        </span>
+                    </td>
                 </tr>
             </table>
-            <table class="layout">
+            <!-- <table class="layout">
                 <tr>
                     <td style="width: 60%"><strong>CRSP SC / CM:</strong>
                         <span class="fields"><?php echo $crsp; ?></span>
@@ -275,7 +284,7 @@ $personalObjectives = array(
                         </span>
                     </td>
                 </tr>
-            </table>
+            </table> -->
             <table class="layout">
                 <tr>
                     <td style="width: 80%;">
@@ -305,8 +314,8 @@ $personalObjectives = array(
                         <th style="width:5%;">Min</th>
                         <th style="width:5%;">MN</th>
                         <th style="width:5%;">Min</th>
-                        <th style="width:30%;" class="text-left">Community Living Supports Objectives</th>
-                        <th style="width:40%;" class="text-left">CLS Objective</th>
+                        <th style="width:25%;" class="text-left">Community Living Supports Objectives</th>
+                        <th style="width:45%;" class="text-left">CLS Objective</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -349,8 +358,8 @@ $personalObjectives = array(
                         <th style="width:5%;">Min</th>
                         <th style="width:5%;">MN</th>
                         <th style="width:5%;">Min</th>
-                        <th style="width:30%;" class="text-left">Personal Care Objectives</th>
-                        <th style="width:40%;" class="text-left">PC Objective</th>
+                        <th style="width:25%;" class="text-left">Personal Care Objectives</th>
+                        <th style="width:45%;" class="text-left">PC Objective</th>
                     </tr>
                 </thead>
                 <tbody>
