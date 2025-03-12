@@ -36,6 +36,7 @@ class CreateMetaBoxes extends BaseController
                 'fields'        => [
                     '_search_member',
                     '_search_mhwin_id',
+                    '_download_pdf',
                 ],
                 'nonce_name'    => 'search_record_nonce',
                 'nonce_action'  => 'search_record_nonce_action',

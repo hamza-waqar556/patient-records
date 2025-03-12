@@ -5,6 +5,8 @@ jQuery(document).ready(function ($) {
     var member = $("#_search_member").val();
     var mhwin_id = $("#_search_mhwin_id").val();
     var post_data = $("#_post_data").val();
+    var post_id = $("#_current_post_id").val();
+
 
     $.ajax({
       url: AIOB.ajax_url, // Using localized variable from your Enqueue class
@@ -15,6 +17,7 @@ jQuery(document).ready(function ($) {
         member: member,
         mhwin_id: mhwin_id,
         post_data: post_data,
+        post_id: post_id,
       },
       success: function (response) {
         if (response.success) {

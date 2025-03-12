@@ -29,6 +29,7 @@ class PdfController
             'ami' => sanitize_text_field($_POST['ami'] ?? ''),
             'post_data' => wp_unslash($_POST['post_data'] ?? ''),
             // You can add additional fields here.
+            'post_id' => absint($_POST['post_id'] ?? '')
         ];
 
         // Generate the PDF.

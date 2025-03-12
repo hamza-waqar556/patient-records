@@ -167,7 +167,7 @@ $personalObjectives = array(
         .fields {
             padding: 4px;
             border-bottom: 1px solid #000;
-            font-size: 12px;
+            font-size: 10px;
             display: inline-block;
             width: 100%;
             box-sizing: border-box;
@@ -197,7 +197,7 @@ $personalObjectives = array(
 
         th,
         td {
-            font-size: 12px;
+            font-size: 10px;
             border: 1px solid #000;
             padding: 6px;
             vertical-align: top;
@@ -260,8 +260,8 @@ $personalObjectives = array(
                 <tr>
                     <td style="width: 20%;"><strong>Member:</strong> <span class="fields"><?php echo $member_meta; ?></span></td>
                     <td style="width: 20%;"><strong>MHWIN ID#:</strong> <span class="fields"><?php echo $mhwin_id_meta; ?></span></td>
-                    <td style="width: 10%;"><strong>Date:</strong> <span class="fields"><?php echo $date_meta; ?></span></td>
-                    <td style="width: 30%"><strong>CRSP SC / CM:</strong>
+                    <td style="width: 20%;"><strong>Date:</strong> <span class="fields"><?php echo $date_meta; ?></span></td>
+                    <td style="width: 20%"><strong>CRSP SC / CM:</strong>
                         <span class="fields"><?php echo $crsp; ?></span>
                     </td>
                     <td style="width: 20%">
@@ -469,66 +469,56 @@ $personalObjectives = array(
                 }
             ?>
                 <table class="report-table" style="margin-top: 10px;">
-                    <!-- <thead>
-                        <tr class="header-row">
-                            <th style="width:20%; vertical-align: top;">Staff Action/Outcome</th>
-                            <th style="width:10%; vertical-align: top;">CLS/PC</th>
-                            <th style="width:10%; vertical-align: top;">Task ID</th>
-                            <th style="width:60%; vertical-align: top;">Details</th>
-                        </tr>
-                    </thead> -->
 
-                    <tbody>
-                        <tr class="report-row">
-                            <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>Staff Action/Outcome</strong>
-                                <span class="fields">
-                                    <?php echo isset($report['staff_initials']) ? $report['staff_initials'] : ''; ?>
-                                </span>
-                            </td>
-                            <td class="label-cell" style="width:10%; vertical-align: top;">
-                                <strong>CLS/PC:</strong>
-                                <span class="fields">
-                                    <?php echo isset($report['checkbox_select']) ? $report['checkbox_select'] : ''; ?>
-                                </span>
-                            </td>
-                            <td class="label-cell" style="width:10%; vertical-align: top;">
-                                <strong>Task ID:</strong>
-                                <span class="fields">
-                                    <?php echo isset($report['task_id']) ? $report['task_id'] : ''; ?>
-                                </span>
-                            </td>
-                            <td class="content-cell" style="width:60%; vertical-align: top;">
-                                <?php echo $cbText; ?>
-                                <br>
-                                <?php echo isset($report['add_note']) ? $report['add_note'] : ''; ?>
-                            </td>
-                        </tr>
-                        <tr class="report-row">
-                            <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>Staff Signature:</strong>
-                                <span class="fields" style="margin-top: 6px;"></span>
-                            </td>
-                            <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>Credentials:</strong>
-                                <span class="fields" style="margin-top: 6px;"></span>
-                            </td>
-                            <td class="label-cell" style="width:20%; vertical-align: top;">
-                                <strong>PRINT NAME:</strong>
-                                <span class="fields" style="margin-top: 6px;"></span>
-                            </td>
-                            <td class="label-cell" style="width:20%; vertical-align: bottom;">
-                                <div style="display: inline-block; width: 49%;">
-                                    <strong style="display:inline-block;">Staff Type:</strong>
-                                    <span class="fields" style="display:inline-block;"><?php echo isset($report['staff_type']) ? $report['staff_type'] : ''; ?></span>
-                                </div>
-                                <div style="display: inline-block; width: 49%;">
-                                    <strong style="display:inline-block;">Progress Code:</strong>
-                                    <span class="fields" style="display:inline-block;"><?php echo isset($report['progress_code']) ? $report['progress_code'] : ''; ?></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr class="report-row">
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong>Staff Initials</strong>
+                            <span class="fields" style="padding: 0;">
+                                <?php echo isset($report['staff_initials']) ? $report['staff_initials'] : ''; ?>
+                            </span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong>CLS/PC:</strong>
+                            <span class="fields" style="padding: 0;">
+                                <?php echo isset($report['checkbox_select']) ? $report['checkbox_select'] : ''; ?>
+                            </span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong>Task ID:</strong>
+                            <span class="fields" style="padding: 0;">
+                                <?php echo isset($report['task_id']) ? $report['task_id'] : ''; ?>
+                            </span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong>Staff Signature:</strong>
+                            <span class="fields" style="margin-top: 6px; padding: 0; margin-top: 12px;"></span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong>Credentials:</strong>
+                            <span class="fields" style="margin-top: 6px; padding: 0; margin-top: 12px;"></span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong>PRINT NAME:</strong>
+                            <span class="fields" style="margin-top: 6px; padding: 0; margin-top: 12px;"></span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong style="display:inline-block;">Staff Type:</strong>
+                            <span class="fields" style="display:inline-block; padding: 0;"><?php echo isset($report['staff_type']) ? $report['staff_type'] : ''; ?></span>
+                        </td>
+                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                            <strong style="display:inline-block;">Progress Code:</strong>
+                            <span class="fields" style="display:inline-block; padding: 0;"><?php echo isset($report['progress_code']) ? $report['progress_code'] : ''; ?></span>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="report-row">
+                        <td class="content-cell" style="width:100%; vertical-align: top;">
+                            <?php echo $cbText; ?>
+                            <br>
+                            <?php echo isset($report['add_note']) ? $report['add_note'] : ''; ?>
+                        </td>
+                    </tr>
                 </table>
             <?php endforeach; ?>
 

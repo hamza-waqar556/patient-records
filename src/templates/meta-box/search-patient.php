@@ -49,13 +49,6 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
             <div class="select-wrapper">
                 <select name="_search_mhwin_id" id="_search_mhwin_id">
                     <option disabled selected>Select MHWIN</option>
-                    <?php
-                    // Un comment if want to save the selected option on save
-                    // if (! empty($mhwin_id))
-                    // {
-                    //     echo '<option value="' . esc_attr($mhwin_id) . '" selected>' . esc_html($mhwin_id) . '</option>';
-                    // }
-                    ?>
                 </select>
             </div>
         </div>
@@ -69,7 +62,7 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
         <button id="generate-pdf-button">Send PDF</button>
     </div>
     <div class="button-wrapper w-25">
-        <button id="download-pdf" class="btn">Download PDF</button>
+        <button id="_download_pdf" name="_download_pdf" class="btn">Download PDF</button>
     </div>
 
 </div>
