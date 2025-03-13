@@ -40,3 +40,18 @@ register_deactivation_hook(__FILE__, 'deactivatePrecPlugin');
 if (class_exists('Inc\\Init')) {
     Inc\Init::registerServices();
 }
+
+if ( is_admin() ) {
+    function removeMenusForSubscribers() {
+        if ( current_user_can('subscriber') ) {
+            remove_menu_page('index.php');                   // Dashboard
+            remove_menu_page('edit.php');                      // Posts
+            remove_menu_page('upload.php');                    // Media
+            remove_menu_page('edit.php?post_type=page');         // Pages
+            remove_menu_page('edit-comments.php');             // Comments
+            remove_menu_page('tools.php');                     // Tools
+            remove_menu_page('options-general.php');           // Settings
+        }
+    }
+    add_action('admin_menu', 'removeMenusForSubscribers', 999);
+}

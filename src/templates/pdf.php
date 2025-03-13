@@ -2,6 +2,10 @@
 // Decode your JSON post data as an associative array
 $postData = json_decode($data['post_data'], true);
 
+// echo "<pre>";
+// print_r($postData);
+// echo "</pre>";
+
 
 // Get the first item (top-level object)
 $item = $postData[0];
@@ -299,9 +303,12 @@ $personalObjectives = array(
                             <?php echo $cls_hours; ?>
                         </span>
                     </td>
-                    <td style="width: 10%; vertical-align: bottom;"><strong>PC Hours:</strong> <span class="fields">
+                    <td style="width: 10%; vertical-align: bottom;">
+                        <strong>PC Hours:</strong>
+                        <span class="fields">
                             <?php echo $pc_hours; ?>
-                        </span></td>
+                        </span>
+                    </td>
                 </tr>
             </table>
             <!-- Community Living Supports Table (Dynamic) -->
