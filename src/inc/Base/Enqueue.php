@@ -50,6 +50,7 @@ class Enqueue extends BaseController
             'nonce'   => wp_create_nonce('generate_pdf_nonce'),
             'nonce_mhwin'   => wp_create_nonce("fetch_mhwin_ids_nonce"),
             'autofill_nonce' => wp_create_nonce('autofill_nonce'),
+            'download_pdf_nonce' => wp_create_nonce('download_pdf_nonce'),
         ]);
     }
 }

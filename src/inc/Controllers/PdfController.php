@@ -10,8 +10,10 @@ class PdfController
     public function register()
     {
         add_action('wp_ajax_generate_pdf', [$this, 'handle_generate_pdf']);
-        // Uncomment the next line if you need non-logged in users to trigger this:
-        // add_action('wp_ajax_nopriv_generate_pdf', [$this, 'handle_generate_pdf']);
+        add_action('wp_ajax_nopriv_generate_pdf', [$this, 'handle_generate_pdf']);
+
+        add_action('wp_ajax_nopriv_download_pdf', [$this, 'handle_download_pdf']);
+        add_action('wp_ajax_download_pdf', [$this, 'handle_download_pdf']);
     }
 
     public function handle_generate_pdf()
@@ -49,5 +51,25 @@ class PdfController
             wp_send_json_error('Email sending failed.');
         }
         wp_die();
+    }
+
+    public function handle_download_pdf()
+    {
+        // Verify nonce
+        if (! isset($_GET['nonce']) || ! wp_verify_nonce($_GET['nonce'], 'download_pdf_nonce')) {
+            wp_die('Invalid nonce');
+        }
+
+        // Gather data from GET parameters (or adjust as needed)
+        $data = [
+            'member'   => sanitize_text_field($_GET['member'] ?? ''),
+            'mhwin_id' => sanitize_text_field($_GET['mhwin_id'] ?? ''),
+            // Add additional fields if needed.
+            'post_data' => wp_unslash($_GET['post_data'] ?? ''),
+            'post_id' => absint($_GET['post_id'] ?? 0)
+        ];
+
+        $pdf_generator = new GeneratePdf();
+        $pdf_generator->outputPdf($data);
     }
 }

@@ -5,6 +5,7 @@ import "../scss/admin.scss";
 // import Form2Controls from "./modules/form2.js";
 import CheckboxOptions from "./modules/checkbox-options.js";
 import GeneratePdf from "./modules/generate-pdf.js";
+import DownloadPdf from "./modules/download-pdf.js";
 import AjaxMhwin from "./modules/ajax-mhwin-id.js";
 
 console.log("Admin JS loaded");

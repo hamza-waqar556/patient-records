@@ -58,11 +58,14 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
         <button type="submit" id="auto-fill-button">Auto Fill</button>
     </div>
 
-    <div class="button-wrapper w-25">
-        <button id="generate-pdf-button">Send PDF</button>
-    </div>
-    <div class="button-wrapper w-25">
-        <button id="_download_pdf" name="_download_pdf" class="btn">Download PDF</button>
+    <div class="input-rows">
+        <div class="button-wrapper w-25">
+            <button id="generate-pdf-button">Send PDF</button>
+        </div>
+
+        <div class="button-wrapper w-25">
+            <button id="_download_pdf" name="_download_pdf" class="btn">Download PDF</button>
+        </div>
     </div>
 
 </div>

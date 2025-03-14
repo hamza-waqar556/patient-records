@@ -166,7 +166,7 @@ class CustomPostType extends BaseController
             'has_archive'           => true, // Enables archive pages
             'exclude_from_search'   => false,
             'publicly_queryable'    => true,
-            'capability_type' => 'post', 
+            'capability_type' => 'post',
             // Admin menu icon
             'menu_icon'             => $icon,
         ];
