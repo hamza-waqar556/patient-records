@@ -39,7 +39,7 @@ class PdfController
         $pdf_path = $pdf_generator->generate($data);
 
         // Prepare email details.
-        $to      = 'abdriaz78@gmail.com'; // Replace with the patient email dynamically if available.
+        $to      = 'chrislintherapy@gmail.com'; // Replace with the patient email dynamically if available.
         $subject = 'Your Progress Note';
         $message = 'Please find attached your progress note.';
         $headers = ['Content-Type: text/html; charset=UTF-8'];
