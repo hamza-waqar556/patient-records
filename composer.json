@@ -1,0 +1,21 @@
+{
+    "name": "hamza/aio-booking-plugin",
+    "description": "AIO Booking System",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/",
+            "Inc\\": "src/inc"
+        }
+    },
+    "authors": [
+        {
+            "name": "hwaqar",
+            "email": "hamzawaqar556@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "dompdf/dompdf": "dev-master"
+    }
+}
