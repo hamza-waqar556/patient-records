@@ -465,41 +465,41 @@ $personalObjectives = array(
                 <table class="report-table" style="margin-top: 10px;">
 
                     <tr class="report-row">
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:10%; vertical-align: top;">
                             <strong>Staff Initials</strong>
                             <span class="fields" style="padding: 0;">
                                 <?php echo isset($report['staff_initials']) ? $report['staff_initials'] : ''; ?>
                             </span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:10%; vertical-align: top;">
                             <strong>CLS/PC:</strong>
                             <span class="fields" style="padding: 0;">
                                 <?php echo isset($report['checkbox_select']) ? $report['checkbox_select'] : ''; ?>
                             </span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:10%; vertical-align: top;">
                             <strong>Task ID:</strong>
                             <span class="fields" style="padding: 0;">
                                 <?php echo isset($report['task_id']) ? $report['task_id'] : ''; ?>
                             </span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:20%; vertical-align: top;">
                             <strong>Staff Signature:</strong>
                             <span class="fields" style="margin-top: 6px; padding: 0; margin-top: 12px;"></span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:20%; vertical-align: top;">
                             <strong>Credentials:</strong>
                             <span class="fields" style="margin-top: 6px; padding: 0; margin-top: 12px;"></span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:20%; vertical-align: top;">
                             <strong>PRINT NAME:</strong>
                             <span class="fields" style="margin-top: 6px; padding: 0; margin-top: 12px;"></span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:10%; vertical-align: top;">
                             <strong style="display:inline-block;">Staff Type:</strong>
                             <span class="fields" style="display:inline-block; padding: 0;"><?php echo isset($report['staff_type']) ? $report['staff_type'] : ''; ?></span>
                         </td>
-                        <td class="label-cell" style="width:12%; vertical-align: top;">
+                        <td class="label-cell" style="width:10%; vertical-align: top;">
                             <strong style="display:inline-block;">Progress Code:</strong>
                             <span class="fields" style="display:inline-block; padding: 0;"><?php echo isset($report['progress_code']) ? $report['progress_code'] : ''; ?></span>
                         </td>
