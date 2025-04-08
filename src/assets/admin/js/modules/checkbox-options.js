@@ -84,12 +84,19 @@ class MetaOptionsSelector {
           // Check if the normalized replaced value is in the saved checkbox values.
           const isChecked =
             normalizedSavedValues.indexOf(normalizeText(replacedValue)) !== -1;
+
+          // Check if heading is defined, and if not, set a default value.
+          const heading = item.heading ? item.heading : "";
+
           html += `
             <li>
-              <input type="checkbox" name="${inputName}" id="${inputId}" value="${replacedValue}" ${
+              <div style="display: block; font-size: 1.1rem; font-weight: 600; margin-bottom: 4px;">${heading}</div>
+              <div>
+                <input type="checkbox" name="${inputName}" id="${inputId}" value="${replacedValue}" ${
             isChecked ? "checked" : ""
           }>
-              <label for="${inputId}">${replacedValue}</label>
+                <label for="${inputId}">${replacedValue}</label>
+              </div>
             </li>
           `;
         });

@@ -62,6 +62,9 @@ class FilterJson {
   }
 
   renderContent(data) {
+
+    console.log("renderContent data ", data);
+
     // Clear all tabs
     $(".tab-content").removeClass("active").find("ul").empty();
 
@@ -86,21 +89,24 @@ class FilterJson {
             .map(
               (item, index) => `
                     <li>
+                    <div style="display: block; font-size: 1rem; font-weight: 600; margin-bottom: 10px;"> ${item.heading} </div>
+                      <div>
                         <input type="checkbox" 
                                name="${
                                  this.currentCategories[dropdownId]
                                }-check[]" 
                                id="${this.currentCategories[dropdownId]}-check${
-                index + 1
-              }"
-              value="${item.value}"
-              >
+                                index + 1
+                              }"
+                              value="${item.value}"
+                              >
                         <label for="${
                           this.currentCategories[dropdownId]
                         }-check${index + 1}">
                             ${item.value}
                         </label>
-                    </li>
+                    </div>
+              </li>
                 `
             )
             .join("")

@@ -26,18 +26,14 @@ class CheckboxSelect
      */
     public function __construct($json, $isFile = true)
     {
-        if ($isFile && file_exists($json))
-        {
+        if ($isFile && file_exists($json)) {
             $jsonContent = file_get_contents($json);
-        }
-        else
-        {
+        } else {
             $jsonContent = $json;
         }
         $this->json = json_decode($jsonContent);
         $this->data = json_decode($jsonContent, true);
-        if (!is_array($this->data))
-        {
+        if (!is_array($this->data)) {
             $this->data = [];
         }
     }
@@ -70,8 +66,7 @@ class CheckboxSelect
     public function getOptions()
     {
         $options = [];
-        foreach ($this->data as $item)
-        {
+        foreach ($this->data as $item) {
             $options = array_merge($options, array_keys($item));
         }
         return $options;
@@ -85,10 +80,8 @@ class CheckboxSelect
      */
     public function getDataByKey($key)
     {
-        foreach ($this->data as $item)
-        {
-            if (isset($item[$key]))
-            {
+        foreach ($this->data as $item) {
+            if (isset($item[$key])) {
                 return $item[$key];
             }
         }
@@ -124,8 +117,7 @@ class CheckboxSelect
         $options = $this->getOptions();
         $html = '<select name="' . esc_attr($selectName) . '" id="' . esc_attr($selectName) . '">';
         $html .= '<option value="" hidden>Select an option</option>';
-        foreach ($options as $option)
-        {
+        foreach ($options as $option) {
             $sel = ($option === $selected) ? 'selected' : '';
             $html .= '<option value="' . esc_attr($option) . '" ' . $sel . '>' . esc_html($option) . '</option>';
         }
@@ -146,11 +138,53 @@ class CheckboxSelect
      * @param string $checkboxPrefix The prefix for checkbox names (should include group index).
      * @return string HTML output.
      */
+    // public function renderCheckboxes($outerKey, $checkboxPrefix = 'check')
+    // {
+    //     $data = $this->getDataByKey($outerKey);
+    //     if (empty($data))
+    //     {
+    //         return '<p>No items available for this option.</p>';
+    //     }
+    //     $html = '<div class="tabs-container">';
+    //     $html .= '<div id="' . esc_attr($outerKey) . '" class="tab-content active">';
+    //     $html .= '<ul>';
+    //     // Use the saved checkboxes as a flat array.
+    //     $savedForKey = $this->savedCheckboxes;
+    //     foreach ($data as $item)
+    //     {
+    //         $index = isset($item['index']) ? intval($item['index']) : 0;
+    //         $value = isset($item['value']) ? trim($item['value']) : '';
+    //         if (!empty($this->member))
+    //         {
+    //             $replacement = strtoupper($this->member);
+    //             $value = preg_replace('/\b(the\s+)?(client|consumer)\b/i', $replacement, $value);
+    //         }
+    //         $savedValue   = isset($savedForKey[$index]) ? sanitize_text_field($savedForKey[$index]) : '';
+    //         $displayValue = sanitize_text_field($value);
+    //         $normalizedSaved   = $this->normalizeText($savedValue);
+    //         $normalizedDisplay = $this->normalizeText($displayValue);
+    //         $checked = ($normalizedSaved === $normalizedDisplay) ? 'checked' : '';
+
+    //         // Generate input name as a flat array element.
+    //         $inputName = sprintf('%s[%d]', esc_attr($checkboxPrefix), $index);
+    //         // Use the outer key only in the ID for uniqueness.
+    //         $inputId   = sprintf('%s-%s-%d', esc_attr($checkboxPrefix), esc_attr($outerKey), $index);
+
+    //         $html .= '<li>';
+    //         $html .= '<input type="checkbox" name="' . esc_attr($inputName) . '" id="' . esc_attr($inputId) . '" value="' . esc_attr($displayValue) . '" ' . $checked . '>';
+    //         $html .= '<label for="' . esc_attr($inputId) . '">' . esc_html($displayValue) . '</label>';
+    //         $html .= '</li>';
+    //     }
+    //     $html .= '</ul>';
+    //     $html .= '</div>';
+    //     $html .= '</div>';
+    //     return $html;
+    // }
+
     public function renderCheckboxes($outerKey, $checkboxPrefix = 'check')
     {
         $data = $this->getDataByKey($outerKey);
-        if (empty($data))
-        {
+        if (empty($data)) {
             return '<p>No items available for this option.</p>';
         }
         $html = '<div class="tabs-container">';
@@ -158,12 +192,17 @@ class CheckboxSelect
         $html .= '<ul>';
         // Use the saved checkboxes as a flat array.
         $savedForKey = $this->savedCheckboxes;
-        foreach ($data as $item)
-        {
+
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+
+        foreach ($data as $item) {
             $index = isset($item['index']) ? intval($item['index']) : 0;
+            // Retrieve heading if it exists.
+            $heading = isset($item['heading']) ? trim($item['heading']) : '';
             $value = isset($item['value']) ? trim($item['value']) : '';
-            if (!empty($this->member))
-            {
+            if (!empty($this->member)) {
                 $replacement = strtoupper($this->member);
                 $value = preg_replace('/\b(the\s+)?(client|consumer)\b/i', $replacement, $value);
             }
@@ -172,15 +211,19 @@ class CheckboxSelect
             $normalizedSaved   = $this->normalizeText($savedValue);
             $normalizedDisplay = $this->normalizeText($displayValue);
             $checked = ($normalizedSaved === $normalizedDisplay) ? 'checked' : '';
-
             // Generate input name as a flat array element.
             $inputName = sprintf('%s[%d]', esc_attr($checkboxPrefix), $index);
             // Use the outer key only in the ID for uniqueness.
             $inputId   = sprintf('%s-%s-%d', esc_attr($checkboxPrefix), esc_attr($outerKey), $index);
-
             $html .= '<li>';
+            // If a heading exists, render it as a separate element.
+            if (!empty($heading)) {
+                $html .= '<div style="display: block; font-size: 1rem; font-weight: 600; margin-bottom: 10px;">' . esc_html($heading) . '</div>';
+            }
+            $html .= '<div>';
             $html .= '<input type="checkbox" name="' . esc_attr($inputName) . '" id="' . esc_attr($inputId) . '" value="' . esc_attr($displayValue) . '" ' . $checked . '>';
             $html .= '<label for="' . esc_attr($inputId) . '">' . esc_html($displayValue) . '</label>';
+            $html .= '</div>';
             $html .= '</li>';
         }
         $html .= '</ul>';
