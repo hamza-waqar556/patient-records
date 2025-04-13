@@ -119,15 +119,15 @@ wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_no
                     <input type="text" name="progress_reports[<?php echo $index; ?>][member]" id="form2-member-<?php echo $index; ?>" class="member-input" placeholder="Member" value="<?php echo esc_attr($member); ?>">
                 </div>
                 <!-- MHWIN ID -->
-                <div class="input-wrapper w-33">
+                <!-- <div class="input-wrapper w-33">
                     <label for="form2-mhwin_id-<?php echo $index; ?>">MHWIN ID#</label>
                     <input type="text" name="progress_reports[<?php echo $index; ?>][mhwin_id]" id="form2-mhwin_id-<?php echo $index; ?>" placeholder="MHWIN ID#" value="<?php echo esc_attr($mhwin_id); ?>">
-                </div>
+                </div> -->
                 <!-- Date -->
-                <div class="input-wrapper w-33">
+                <!-- <div class="input-wrapper w-33">
                     <label for="form2-date-<?php echo $index; ?>">Date</label>
                     <input type="date" name="progress_reports[<?php echo $index; ?>][date]" id="form2-date-<?php echo $index; ?>" placeholder="Date" value="<?php echo esc_attr($date); ?>">
-                </div>
+                </div> -->
             </div>
             <div class="input-rows">
                 <!-- Staff Initials -->
