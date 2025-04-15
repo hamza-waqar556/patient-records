@@ -5,7 +5,7 @@
 
 $post_id = get_the_ID();
 
-use \Inc\Api\CptQueryHandler;
+use Inc\Api\CptQueryHandler;
 
 $query_class = new CptQueryHandler();
 
@@ -15,7 +15,7 @@ $results = $query_class
     ->postId($post_id)
     ->getResults();
 
-$patient_records = get_post_meta($post->ID, '__progress_reports', false);
+$patient_records = get_post_meta($post->ID, '__progress_reports');
 
 $results[0]['meta']['__progress_reports'] = $patient_records;
 
@@ -68,6 +68,10 @@ wp_nonce_field('search_record_nonce_action', 'search_record_nonce');
 
         <div class="button-wrapper w-33">
             <button type="button" id="_download_pdf" name="_download_pdf" class="btn">Download PDF</button>
+        </div>
+
+        <div class="button-wrapper w-33">
+            <button type="button" id="preview" name="preview" class="btn">Preview</button>
         </div>
     </div>
 

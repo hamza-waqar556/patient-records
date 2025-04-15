@@ -18,7 +18,7 @@ final class Init
             Base\Enqueue::class,
             Controllers\CustomPostType::class,
             Controllers\CreateMetaBoxes::class,
-            // Controllers\FetchRecord::class,
+            \Inc\Components\ViewPdf::class,
             \Inc\Controllers\PdfController::class,
             \Inc\Controllers\FetchMhwinId::class,
             \Inc\Controllers\AutofillHandler::class,

@@ -46,11 +46,11 @@ class Enqueue extends BaseController
         wp_localize_script('admin', 'AIOB', [
             'routes'  => $rest_routes,
             'plugin'  => $plugin,
+            'view_url' => home_url('/view-pdf'),
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'   => wp_create_nonce('generate_pdf_nonce'),
             'nonce_mhwin'   => wp_create_nonce("fetch_mhwin_ids_nonce"),
             'autofill_nonce' => wp_create_nonce('autofill_nonce'),
-            'download_pdf_nonce' => wp_create_nonce('download_pdf_nonce'),
         ]);
     }
 }

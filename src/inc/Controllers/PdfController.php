@@ -55,11 +55,6 @@ class PdfController
 
     public function handle_download_pdf()
     {
-        // Removed nonce verification for PDF download.
-        // if (! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'download_pdf_nonce')) {
-        //     wp_die('Invalid nonce');
-        // }
-
         // Gather data from POST parameters.
         $data = [
             'member'    => sanitize_text_field($_POST['member'] ?? ''),
