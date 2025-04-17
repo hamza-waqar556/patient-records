@@ -96,26 +96,26 @@ foreach ($progressReports as $index => $report) {
 
 // Define objective arrays for Community and Personal tables
 $communityObjectives = array(
-    'c1' => 'Meal Preparation/Kitchen Skills',
-    'c2' => 'Laundry',
-    'c3' => 'Housekeeping Skills',
-    'c4' => 'Behavioral Interventions Needed',
-    'c5' => 'Total Shopping',
-    'c6' => 'Money Management',
-    'c7' => 'Community/Socialization Skills',
-    'c8' => 'Attending Medical Appointments',
-    'c9' => 'Medication Instruction Skills',
-    'c10' => 'Health & Safety/Medical Complexity',
-    'c11' => 'Symptoms/Stress Management Skills'
+    'c1' => 'C1 Meal Preparation/Kitchen Skills',
+    'c2' => 'C2 Laundry',
+    'c3' => 'C3 Housekeeping Skills',
+    'c4' => 'C4 Behavioral Interventions Needed',
+    'c5' => 'C5 Total Shopping',
+    'c6' => 'C6 Money Management',
+    'c7' => 'C7 Community/Socialization Skills',
+    'c8' => 'C8 Attending Medical Appointments',
+    'c9' => 'C9 Medication Instruction Skills',
+    'c10' => 'C10 Health & Safety/Medical Complexity',
+    'c11' => 'C11 Symptoms/Stress Management Skills'
 );
 $personalObjectives = array(
-    'p1' => 'Eating/Feeding',
-    'p2' => 'Toileting',
-    'p3' => 'Showering/Bathing/Personal Hygiene',
-    'p4' => 'Dressing',
-    'p5' => 'Mobility/Transferring',
-    'p6' => 'Medication Knowledge/Administration',
-    'p7' => 'Complex Care'
+    'p1' => 'P1 Eating/Feeding',
+    'p2' => 'P2 Toileting',
+    'p3' => 'P3 Showering/Bathing/Personal Hygiene',
+    'p4' => 'P4 Dressing',
+    'p5' => 'P5 Mobility/Transferring',
+    'p6' => 'P6 Medication Knowledge/Administration',
+    'p7' => 'P7 Complex Care'
 );
 ?>
 <!DOCTYPE html>
@@ -175,6 +175,7 @@ $personalObjectives = array(
         .heading h2 {
             margin: 0 0 8px 0;
             font-size: 16px;
+            font-weight: 600;
         }
 
         .heading p {
@@ -233,6 +234,10 @@ $personalObjectives = array(
         .text-center {
             text-align: center;
         }
+        
+        /* .wp-block-post-title{
+            display: none !important;
+        } */
 
         @media print {
             body {

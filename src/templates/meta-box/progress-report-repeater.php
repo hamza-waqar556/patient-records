@@ -89,6 +89,7 @@ wp_nonce_field('record_progress_report_nonce_action', 'record_progress_report_no
     ?>
 </section>
 
+
 <div id="progress-report-repeater" style="position: relative; padding-bottom: 60px;">
     <?php foreach ($progress_reports as $index => $group):
         // Prepare and sanitize values for this group.

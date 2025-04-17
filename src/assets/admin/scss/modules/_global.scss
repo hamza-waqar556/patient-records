@@ -7,3 +7,13 @@ body {
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+/* hide aerows from meta box */
+
+.postbox {
+  .handle-order-higher,
+  .handle-order-lower{
+  display: none !important;
+}
+}
+/* end hide aerow css */
