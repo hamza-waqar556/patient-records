@@ -2,85 +2,136 @@
 
 namespace Inc\Base;
 
-class RoleCapabilities
-{
-    public function register()
-    {
-        // Grant subscribers basic editing/publishing capabilities on admin_init.
-        add_action('admin_init', [$this, 'grantSubscriberCapabilities']);
-        // Override capability checks to allow subscribers to edit, update, and publish CPT posts directly.
-        add_filter('user_has_cap', [$this, 'allowSubscriberEditAndPublishForCpt'], 10, 4);
-        // Optionally, remove the Trash link from the post list for subscribers.
-        add_filter('post_row_actions', [$this, 'removeTrashLinkForSubscribers'], 10, 2);
-    }
-    
+/**
+ * Class EditorCapabilities
+ *
+ * Restricts the Editor role to only manage the custom post type 'record':
+ *  - Removes all delete/trash capabilities on activation
+ *  - Hides other admin menus
+ *  - Redirects list screens to 'record'
+ *  - Removes Trash links and bulk delete for 'record'
+ */
+class RoleCapabilities {
     /**
-     * Grants subscribers the default editing and publishing capabilities.
+     * Register all hooks
      */
-    public function grantSubscriberCapabilities()
-    {
-        $role = get_role('subscriber');
-        if ($role) {
-            // Subscribers normally have 'read' but not editing/publishing rights.
-            $role->add_cap('read');
-            $role->add_cap('edit_posts');    // Allow editing posts.
-            $role->add_cap('publish_posts'); // Allow direct publishing.
+    public function register() {
+        // Restrict menus for Editors
+        add_action('admin_menu', [$this, 'restrictEditorMenus'], 999);
+        // Force list screens to CPT 'record'
+        add_action('pre_get_posts', [$this, 'forceRecordList'], 1);
+        // Remove Trash link per row for 'record'
+        add_filter('post_row_actions', [$this, 'removeTrashLinkForEditors'], 10, 2);
+        // Remove bulk Trash action on 'record' list
+        add_filter('bulk_actions-edit-record', [$this, 'removeBulkTrashAction'], 10, 1);
+    }
+
+    /**
+     * Plugin activation: remove delete/trash capabilities from Editor
+     */
+    public static function activate() {
+        $role = get_role('editor');
+        if (! $role) {
+            return;
+        }
+
+        // Capabilities to revoke
+        $delete_caps = [
+            // Built-in posts
+            'delete_posts',
+            'delete_others_posts',
+            'delete_published_posts',
+            'delete_private_posts',
+            // Built-in pages
+            'delete_pages',
+            'delete_others_pages',
+            'delete_published_pages',
+            'delete_private_pages',
+            // Custom post type 'record' (map_meta_cap => true)
+            'delete_records',
+            'delete_others_records',
+            'delete_published_records',
+            'delete_private_records',
+        ];
+
+        foreach ($delete_caps as $cap) {
+            $role->remove_cap($cap);
         }
     }
-    
+
     /**
-     * Removes the Trash link from the post row actions for subscribers on CPT "record".
-     *
-     * @param array $actions Row actions.
-     * @param \WP_Post $post The current post object.
-     * @return array Modified row actions.
+     * Keep only the 'record' CPT menu for Editors
      */
-    public function removeTrashLinkForSubscribers($actions, $post)
-    {
-        $user = wp_get_current_user();
-        if (in_array('subscriber', (array) $user->roles) && $post->post_type === 'record') {
+    public function restrictEditorMenus() {
+        if (! current_user_can('editor')) {
+            return;
+        }
+
+        // Slugs of menus to remove
+        $menus_to_remove = [
+            'index.php',                // Dashboard
+            'edit.php',                 // Posts
+            'upload.php',               // Media
+            'edit.php?post_type=page',  // Pages
+            'edit-comments.php',        // Comments
+            'themes.php',               // Appearance
+            'plugins.php',              // Plugins
+            'users.php',                // Users
+            'tools.php',                // Tools
+            'options-general.php',      // Settings
+        ];
+
+        foreach ($menus_to_remove as $slug) {
+            remove_menu_page($slug);
+        }
+    }
+
+    /**
+     * Force Editors to the 'record' list screen
+     *
+     * @param \WP_Query $query
+     */
+    public function forceRecordList($query) {
+        if (! is_admin() || ! $query->is_main_query()) {
+            return;
+        }
+
+        if (! current_user_can('editor')) {
+            return;
+        }
+
+        $screen = get_current_screen();
+        if ($screen && $screen->post_type !== 'record') {
+            wp_safe_redirect(admin_url('edit.php?post_type=record'));
+            exit;
+        }
+    }
+
+    /**
+     * Remove the Trash link from each row for 'record' CPT
+     *
+     * @param array    $actions Row actions
+     * @param \WP_Post $post    Current post object
+     * @return array Modified row actions
+     */
+    public function removeTrashLinkForEditors($actions, $post) {
+        if (current_user_can('editor') && $post->post_type === 'record') {
             unset($actions['trash']);
         }
         return $actions;
     }
-    
+
     /**
-     * Grants subscribers the ability to edit, update, and publish CPT posts.
+     * Remove the Bulk Trash action from the 'record' list screen
      *
-     * This filter checks if the requested capability is one of the editing or publishing keys
-     * for a post of type "record". If so, and the user is a subscriber, it grants the requested
-     * capability(s) so that the post can be directly published.
-     *
-     * @param array    $allcaps All capabilities for the user.
-     * @param array    $caps    Capabilities being checked.
-     * @param array    $args    Additional arguments (first element is the requested capability,
-     *                          third element is the post ID).
-     * @param \WP_User $user    The current user object.
-     * @return array Modified capabilities.
+     * @param array $actions Bulk actions
+     * @return array Modified bulk actions
      */
-    public function allowSubscriberEditAndPublishForCpt($allcaps, $caps, $args, $user)
-    {
-        // Define the capabilities we want to override.
-        $capabilitiesToOverride = [
-            'edit_post', 
-            'edit_page', 
-            'edit_posts', 
-            'edit_published_post', 
-            'publish_posts'
-        ];
-        
-        if (isset($args[0]) && in_array($args[0], $capabilitiesToOverride) && isset($args[2])) {
-            $post = get_post($args[2]);
-            if ($post && $post->post_type === 'record') {
-                if (in_array('subscriber', (array)$user->roles)) {
-                    // Grant all requested capabilities.
-                    foreach ($caps as $cap) {
-                        $allcaps[$cap] = true;
-                    }
-                }
-            }
+    public function removeBulkTrashAction($actions) {
+        if (isset($actions['trash'])) {
+            unset($actions['trash']);
         }
-        
-        return $allcaps;
+        return $actions;
     }
 }
+
